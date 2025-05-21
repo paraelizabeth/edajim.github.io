@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Multimedia - Tú y Yo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Arial", sans-serif;
+      background: linear-gradient(to bottom right, #f8c8dc, #d8b4e2);
+      overflow-x: hidden;
+      transition: padding-left 0.3s ease;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: linear-gradient(90deg, #f8c8dc, #d8b4e2);
+      color: #825f9a;
+      font-size: 2rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      z-index: 900;
+    }
+
+    .menu-icon-container {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 1001;
+    }
+
+    .menu-icon {
+      font-size: 30px;
+      color: white;
+      background-color: #f7a9c4;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      height: 100vh;
+      width: 250px;
+      background-color: #cba4e5;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: left 0.3s ease;
+      z-index: 1000;
+    }
+
+    .navbar.open {
+      left: 0;
+    }
+
+    .navbar a {
+      color: white;
+      padding: 16px;
+      text-decoration: none;
+      font-size: 18px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .navbar a:hover {
+      background-color: #b282cc;
+    }
+
+    body.sidebar-open {
+      padding-left: 250px;
+    }
+
+    .content {
+      margin-top: 90px;
+      padding: 20px;
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .song {
+      background: #e6d0f5;
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 4px 8px rgba(130, 95, 154, 0.2);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .song img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      object-fit: cover;
+      height: 150px;
+      width: 100%;
+    }
+
+    audio {
+      width: 100%;
+      border-radius: 10px;
+      margin: 0;
+    }
+
+    .heart {
+      position: fixed;
+      top: -10px;
+      color: #f8c8dc;
+      font-size: 20px;
+      animation: fall linear infinite;
+      user-select: none;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+
+    /* CONTACTOS */
+    #contactos {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    #contactos h2 {
+      color: #825f9a;
+      font-size: 2em;
+      margin-bottom: 30px;
+    }
+
+    .contact-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .contact-card {
+      background: #f3d4f1;
+      border-radius: 15px;
+      padding: 20px;
+      width: 200px;
+      box-shadow: 0 4px 8px rgba(130, 95, 154, 0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      animation: floatCard 3s ease-in-out infinite;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 6px 12px rgba(130, 95, 154, 0.4);
+    }
+
+    .contact-card h3 {
+      margin-bottom: 10px;
+      color: #825f9a;
+    }
+
+    .contact-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .contact-icons a {
+      color: #825f9a;
+      font-size: 24px;
+      transition: color 0.3s;
+    }
+
+    .contact-icons a:hover {
+      color: #d88bc1;
+    }
+
+    @keyframes floatCard {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+      100% { transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header>🎵 Nuestras Canciones</header>
+
+  <div class="menu-icon-container">
+    <div class="menu-icon" onclick="toggleNavbar()">
+      <i class="fas fa-bars"></i>
+    </div>
+  </div>
+
+  <nav class="navbar" id="sidebar">
+    <a href="index.html">Inicio</a>
+    <a href="ludoteca.html">Ludoteca</a>
+    <a href="multimedia.html">Multimedia</a>
+    <a href="contacto.HTML">Contactos</a>
+  </nav>
+
+  <!-- SECCIÓN DE CONTACTOS -->
+  <section id="contactos">
+    <h2>🌸 Contactos 🌸</h2>
+    <div class="contact-container">
+
+      <!-- Elizabeth -->
+      <div class="contact-card">
+        <h3>Elizabeth</h3>
+        <div class="contact-icons">
+          <a href="https://www.facebook.com/elizabeth" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://wa.me/5210000000000" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://www.instagram.com/elizabeth" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+
+      <!-- Tú -->
+      <div class="contact-card">
+        <h3>Yo</h3>
+        <div class="contact-icons">
+          <a href="https://www.facebook.com/tuusuario" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://wa.me/5210000000000" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    function toggleNavbar() {
+      const sidebar = document.getElementById("sidebar");
+      document.body.classList.toggle("sidebar-open");
+      sidebar.classList.toggle("open");
+    }
+
+    // Corazones animados
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+      heart.innerText = "❤️";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }, 500);
+  </script>
+</body>
+</html>

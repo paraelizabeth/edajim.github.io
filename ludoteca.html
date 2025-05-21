@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ludoteca - Tú y Yo</title>
+  <meta name="description" content="Ludoteca especial para Elizabeth y Carlos." />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Arial", sans-serif;
+      background: linear-gradient(to bottom right, #f8c8dc, #d8b4e2);
+      overflow-x: hidden;
+      transition: padding-left 0.3s ease;
+    }
+
+    /* Navbar y sidebar */
+    .menu-icon-container {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 1001;
+    }
+
+    .menu-icon {
+      font-size: 30px;
+      color: white;
+      background-color: #f7a9c4;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      user-select: none;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      height: 100vh;
+      width: 250px;
+      background-color: #cba4e5;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: left 0.3s ease;
+      z-index: 1000;
+      box-shadow: 3px 0 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .navbar.open {
+      left: 0;
+    }
+
+    .navbar a {
+      display: block;
+      color: white;
+      padding: 16px;
+      text-decoration: none;
+      font-size: 18px;
+      width: 100%;
+      text-align: center;
+      user-select: none;
+      transition: background-color 0.2s;
+    }
+
+    .navbar a:hover {
+      background-color: #b282cc;
+    }
+
+    body.sidebar-open {
+      padding-left: 250px;
+    }
+
+    /* Header fijo */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: linear-gradient(90deg, #f8c8dc, #d8b4e2);
+      color: #825f9a;
+      font-family: "Arial", sans-serif;
+      font-size: 2rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      z-index: 900;
+    }
+
+    /* Contenedor centrado */
+    .page-wrapper {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+
+    /* Contenedor ludoteca - grid 3 columnas x 5 filas exacto */
+    main.ludoteca-container {
+      margin-top: 90px;
+      max-width: 960px;
+      width: 100%;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(5, 1fr);
+      gap: 20px;
+      box-sizing: border-box;
+      min-height: calc(100vh - 90px);
+    }
+
+    .ludoteca-item {
+      background: #e6d0f5;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(130, 95, 154, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 15px;
+      color: #6b4d93;
+      text-align: center;
+      transition: background-color 0.3s;
+      width: 100%;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+
+    .ludoteca-item:hover {
+      background-color: #d3bdf1;
+      box-shadow: 0 6px 12px rgba(130, 95, 154, 0.35);
+    }
+
+    .ludoteca-item img {
+      max-width: 100%;
+      height: auto;
+      max-height: 140px;
+      border-radius: 12px;
+      object-fit: contain;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 6px rgba(122, 92, 158, 0.4);
+      pointer-events: none; /* para que el click pase al contenedor */
+    }
+
+    .ludoteca-item p {
+      margin: 0;
+      font-size: 1rem;
+      user-select: none;
+    }
+
+    /* Nuevo estilo para el texto extra */
+    .descripcion {
+      font-size: 0.9rem;
+      font-style: italic;
+      color: #a070b8;
+      margin-top: 5px;
+      user-select: none;
+    }
+
+    /* Pop-up imagen */
+    #popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(30, 15, 40, 0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1100;
+      cursor: pointer; /* cursor de clic para todo el overlay */
+    }
+
+    #popup-overlay.open {
+      display: flex;
+    }
+
+    #popup-image {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255, 192, 203, 0.9);
+      object-fit: contain;
+      cursor: auto; /* para que la imagen no muestre cursor de clic */
+      pointer-events: auto; /* permite que imagen reciba eventos */
+    }
+
+    #popup-overlay .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      font-size: 2.5rem;
+      color: #f8c8dc;
+      cursor: pointer;
+      user-select: none;
+      font-weight: bold;
+      background: transparent;
+      border: none;
+      z-index: 1200;
+    }
+
+    /* Corazones descendiendo */
+    .heart {
+      position: fixed;
+      top: -10px;
+      color: #f8c8dc;
+      font-size: 20px;
+      animation: fall linear infinite;
+      user-select: none;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>Tú y Yo ❤️ Un lugar para nuestros momentos</header>
+
+  <div class="menu-icon-container">
+    <div class="menu-icon" onclick="toggleNavbar()">
+      <i class="fas fa-bars"></i>
+    </div>
+  </div>
+
+  <nav class="navbar" id="sidebar">
+    <a href="index.html">Inicio</a>
+    <a href="ludoteca.html">Ludoteca</a>
+    <a href="multimedia.html">Multimedia</a>
+    <a href="#contactos">Contactos</a>
+  </nav>
+
+  <div class="page-wrapper">
+    <main class="ludoteca-container">
+      <div class="ludoteca-item" tabindex="0" aria-label="Abrir imagen Juego 1">
+        <img src="img1.jpg" alt="Juego 1" />
+        <p>El primer collar que te obsequie</p>
+        <p class="descripcion">Realmente no hay mucho que decir amor, lo vi y pense en ti lo compre con la ilusion de poder darte un momento feliz</p>
+      </div>
+      <div class="ludoteca-item" tabindex="0" aria-label="Abrir imagen Juego 2">
+        <img src="img2.jpg" alt="Juego 2" />
+        <p>"JAMAS UNO, SIN EL OTRO..."</p>
+        <p class="descripcion">Un juego que fortalece nuestra conexión, Dualidad en el amor: como pareja, ambos pueden tener momentos suaves (Lamb) y momentos intensos o conflictivos (Wolf), pero siguen siendo uno solo, un mismo ser en equilibrio.</p>
+      </div>
+      <div class="ludoteca-item" tabindex="0" aria-label="Abrir imagen Juego 3">
+        <img src="img3.jpg" alt="Juego 3" />
+        <p>Una promesa inquebrantable...</p>
+        <p class="descripcion">Ese anillo no es solo un regalo… es mi forma de decirte que creo en nosotros, que te llevo conmigo y que quiero caminar a tu lado, pase lo que pase..</p>
+      </div>
+      <div class="ludoteca-item" tabindex="0" aria-label="Abrir imagen Juego 4">
+        <img src="img4.jpg" alt="Juego 4" />
+        <p>Dulces, dulces...como tus besos</p>
+        <p class="descripcion">Como todos y cada uno de los dulces que te he dado,
+quiero que sepas que llevan un pedacito de mi cariño.
+No son solo sabores, son formas pequeñas de decirte cuánto te pienso,
+cuánto deseo que tu día se llene de sonrisas… como las que tú me regalas.
+Dulces, como tus besos.
+Suaves, como tu voz.
+Y tuyos, como mi corazón.</p>
+      </div>
+      <div class="ludoteca-item" tabindex="0" aria-label="Abrir imagen Juego 5">
+        <img src="img5.jpg" alt="Juego 5" />
+        <p>Cartitas de amor <3</p>
+        <p class="descripcion">Cada cartita que te he escrito no es solo papel con palabras,
+es un pedazo de mi corazón que te entrego una y otra vez.
+Son mis pensamientos, mis sueños y mis sentimientos más sinceros,
+guardados en cada línea para que siempre recuerdes cuánto te amo.
+No importa cuántas te dé, cada una es única, como nuestro amor,
+y juntas forman la historia que quiero seguir escribiendo contigo</p>
+      </div>
+      <div class="ludoteca-item" tabindex="0" aria-label="Abrir imagen Juego 6">
+        <img src="img6.jpg" alt="Juego 6" />
+        <p>Choricito...</p>
+        <p class="descripcion">Te regalo a Choricito, este pequeño cerdito, para que te acompañe cuando yo no pueda estar a tu lado.
+Que él te recuerde que, aunque esté lejos, siempre estoy pensando en ti y cuidándote desde la distancia.
+Choricito es un guardián de abrazos y sonrisas, listo para hacerte compañía y endulzar tus días.
+Así, nunca estarás sola, porque en cada momento, mi cariño está contigo.</p>
+      </div>
+      <div class="ludoteca-item" tabindex="0" aria-label="Abrir imagen Juego 7">
+        <img src="img7.jpg" alt="Juego 7" />
+        <p>Mas peluches</p>
+        <p class="descripcion">Este peluchito amor te lo compre y te lo regale por que pense que al tenerlo en tus manos te daria mucha felicidad :3</p>
+      </div>
+      <div class="ludoteca-item" tabindex="0" aria-label="Abrir imagen Juego 8">
+        <img src="img8.jpg" alt="Juego 8" />
+        <p>Un regalito con sabor a mar...</p>
+        <p class="descripcion">aunque para estas fechas estabamos mal... no dejaba de pensar en ti ni un solo instante y cuando lo vi me emocione y decidi regalartelo.</p>
+      </div>
+      <div class="ludoteca-item" tabindex="0" aria-label="Abrir imagen Juego 9">
+        <img src="img9.jpg" alt="Juego 9" />
+        <p>Lo que la princesa pida... JAMAS EXPECTADORA</p>
+        <p class="descripcion">Te volviste mi niña consentida y berrinchuda, me prometi a mi mismo darte todo lo bonito que quisieras</p>
+      </div>
+      <div class="ludoteca-item" tabindex="0" aria-label="Abrir imagen Juego 10">
+        <img src="img10.jpg" alt="Juego 10" />
+        <p>200 RAZONES... AUNQUE SINCERAMENTE TENGO MAS</p>
+        <p class="descripcion">JAJAJA MI LIBRO TAN CRITICADO POR TI, lo hice por una idea que vi en tik tok, con la ilusion de que lo vieras y leyeras cada que te sintieras mal o dudosa de lo mucho que me importas</p>
+      </div>
+      <div class="ludoteca-item" tabindex="0" aria-label="Abrir imagen Juego 11">
+        <img src="img11.jpg" alt="Juego 11" />
+        <p>Tiempo juntos</p>
+        <p class="descripcion">Momentos que fortalecen nuestro vínculo.</p>
+      </div>
+      <div class="ludoteca-item" tabindex="0" aria-label="Abrir imagen Juego 12">
+        <img src="img12.jpg" alt="Juego 12" />
+        <p>Momentos inolvidables</p>
+        <p class="descripcion">Historias que contaremos siempre.</p>
+      </div>
+      <div class="ludoteca-item" tabindex="0" aria-label="Abrir imagen Juego 13">
+        <img src="img13.jpg" alt="Juego 13" />
+        <p>Juegos que nos unen</p>
+        <p class="descripcion
+
+
+
+
+
+
+ChatGPT dijo:
+">Nuestro amor hecho juego.</p>
+</div>
+<div class="ludoteca-item" tabindex="0" aria-label="Abrir imagen Juego 14">
+<img src="img14.jpg" alt="Juego 14" />
+<p>Jugando como niños</p>
+<p class="descripcion">La inocencia de nuestro amor.</p>
+</div>
+<div class="ludoteca-item" tabindex="0" aria-label="Abrir imagen Juego 15">
+<img src="img15.jpg" alt="Juego 15" />
+<p>Nuestro juego favorito</p>
+<p class="descripcion">Nunca dejamos de jugar.</p>
+</div>
+</main>
+
+</div> <div id="popup-overlay"> <button class="close-btn" aria-label="Cerrar imagen">&times;</button> <img id="popup-image" src="" alt="Imagen ampliada" /> </div> <script> function toggleNavbar() { const sidebar = document.getElementById("sidebar"); const body = document.body; sidebar.classList.toggle("open"); body.classList.toggle("sidebar-open"); } const popupOverlay = document.getElementById("popup-overlay"); const popupImage = document.getElementById("popup-image"); const closeBtn = popupOverlay.querySelector(".close-btn"); document.querySelectorAll(".ludoteca-item").forEach((item) => { item.addEventListener("click", () => { const img = item.querySelector("img"); popupImage.src = img.src; popupImage.alt = img.alt; popupOverlay.classList.add("open"); }); item.addEventListener("keypress", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); item.click(); } }); }); closeBtn.addEventListener("click", () => { popupOverlay.classList.remove("open"); popupImage.src = ""; popupImage.alt = ""; }); popupOverlay.addEventListener("click", () => { closeBtn.click(); }); </script> </body> </html> 

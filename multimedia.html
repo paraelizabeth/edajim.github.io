@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Multimedia - Tú y Yo</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Arial", sans-serif;
+      background: linear-gradient(to bottom right, #f8c8dc, #d8b4e2);
+      overflow-x: hidden;
+      transition: padding-left 0.3s ease;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: linear-gradient(90deg, #f8c8dc, #d8b4e2);
+      color: #825f9a;
+      font-size: 2rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      z-index: 900;
+    }
+
+    .menu-icon-container {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 1001;
+    }
+
+    .menu-icon {
+      font-size: 30px;
+      color: white;
+      background-color: #f7a9c4;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      height: 100vh;
+      width: 250px;
+      background-color: #cba4e5;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: left 0.3s ease;
+      z-index: 1000;
+    }
+
+    .navbar.open {
+      left: 0;
+    }
+
+    .navbar a {
+      color: white;
+      padding: 16px;
+      text-decoration: none;
+      font-size: 18px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .navbar a:hover {
+      background-color: #b282cc;
+    }
+
+    body.sidebar-open {
+      padding-left: 250px;
+    }
+
+    /* Aquí empieza la modificación */
+
+    .content {
+      margin-top: 90px;
+      padding: 20px;
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+      gap: 20px;
+    }
+
+    .song {
+      background: #e6d0f5;
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 4px 8px rgba(130, 95, 154, 0.2);
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .song img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      object-fit: cover;
+      height: 150px; /* puedes ajustar altura */
+      width: 100%;
+    }
+
+    audio {
+      width: 100%;
+      border-radius: 10px;
+      margin: 0;
+    }
+
+    /* Corazones descendiendo */
+    .heart {
+      position: fixed;
+      top: -10px;
+      color: #f8c8dc;
+      font-size: 20px;
+      animation: fall linear infinite;
+      user-select: none;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>🎵 Nuestras Canciones</header>
+
+  <div class="menu-icon-container">
+    <div class="menu-icon" onclick="toggleNavbar()">
+      <i class="fas fa-bars"></i>
+    </div>
+  </div>
+
+  <nav class="navbar" id="sidebar">
+    <a href="index.html">Inicio</a>
+    <a href="ludoteca.html">Ludoteca</a>
+    <a href="multimedia.html">Multimedia</a>
+    <a href="#contactos">Contactos</a>
+  </nav>
+
+  <div class="content">
+    <div class="song">
+      <img src="imagen1.jpg" alt="Portada canción 1" />
+      <audio controls>
+        <source src="te-regalo.mp3" type="audio/mpeg" />
+        Tu navegador no soporta el reproductor de audio.
+      </audio>
+    </div>
+
+    <div class="song">
+      <img src="imagen2.jpg" alt="Portada canción 2" />
+      <audio controls>
+        <source src="otra-cancion.mp3" type="audio/mpeg" />
+        Tu navegador no soporta el reproductor de audio.
+      </audio>
+    </div>
+        <div class="song">
+      <img src="imagen2.jpg" alt="Portada canción 2" />
+      <audio controls>
+        <source src="otra-cancion.mp3" type="audio/mpeg" />
+        Tu navegador no soporta el reproductor de audio.
+      </audio>
+    </div>    <div class="song">
+      <img src="imagen2.jpg" alt="Portada canción 2" />
+      <audio controls>
+        <source src="otra-cancion.mp3" type="audio/mpeg" />
+        Tu navegador no soporta el reproductor de audio.
+      </audio>
+    </div>    <div class="song">
+      <img src="imagen2.jpg" alt="Portada canción 2" />
+      <audio controls>
+        <source src="otra-cancion.mp3" type="audio/mpeg" />
+        Tu navegador no soporta el reproductor de audio.
+      </audio>
+    </div>    <div class="song">
+      <img src="imagen2.jpg" alt="Portada canción 2" />
+      <audio controls>
+        <source src="otra-cancion.mp3" type="audio/mpeg" />
+        Tu navegador no soporta el reproductor de audio.
+      </audio>
+    </div>    <div class="song">
+      <img src="imagen2.jpg" alt="Portada canción 2" />
+      <audio controls>
+        <source src="otra-cancion.mp3" type="audio/mpeg" />
+        Tu navegador no soporta el reproductor de audio.
+      </audio>
+    </div>    <div class="song">
+      <img src="imagen2.jpg" alt="Portada canción 2" />
+      <audio controls>
+        <source src="otra-cancion.mp3" type="audio/mpeg" />
+        Tu navegador no soporta el reproductor de audio.
+      </audio>
+    </div>    <div class="song">
+      <img src="imagen2.jpg" alt="Portada canción 2" />
+      <audio controls>
+        <source src="otra-cancion.mp3" type="audio/mpeg" />
+        Tu navegador no soporta el reproductor de audio.
+      </audio>
+    </div>    <div class="song">
+      <img src="imagen2.jpg" alt="Portada canción 2" />
+      <audio controls>
+        <source src="otra-cancion.mp3" type="audio/mpeg" />
+        Tu navegador no soporta el reproductor de audio.
+      </audio>
+    </div>    <div class="song">
+      <img src="imagen2.jpg" alt="Portada canción 2" />
+      <audio controls>
+        <source src="otra-cancion.mp3" type="audio/mpeg" />
+        Tu navegador no soporta el reproductor de audio.
+      </audio>
+    </div>    <div class="song">
+      <img src="imagen2.jpg" alt="Portada canción 2" />
+      <audio controls>
+        <source src="otra-cancion.mp3" type="audio/mpeg" />
+        Tu navegador no soporta el reproductor de audio.
+      </audio>
+    </div>    <div class="song">
+      <img src="imagen2.jpg" alt="Portada canción 2" />
+      <audio controls>
+        <source src="otra-cancion.mp3" type="audio/mpeg" />
+        Tu navegador no soporta el reproductor de audio.
+      </audio>
+    </div>    <div class="song">
+      <img src="imagen2.jpg" alt="Portada canción 2" />
+      <audio controls>
+        <source src="otra-cancion.mp3" type="audio/mpeg" />
+        Tu navegador no soporta el reproductor de audio.
+      </audio>
+    </div>    <div class="song">
+      <img src="imagen2.jpg" alt="Portada canción 2" />
+      <audio controls>
+        <source src="otra-cancion.mp3" type="audio/mpeg" />
+        Tu navegador no soporta el reproductor de audio.
+      </audio>
+    </div>    <div class="song">
+      <img src="imagen2.jpg" alt="Portada canción 2" />
+      <audio controls>
+        <source src="otra-cancion.mp3" type="audio/mpeg" />
+        Tu navegador no soporta el reproductor de audio.
+      </audio>
+    </div>    <div class="song">
+      <img src="imagen2.jpg" alt="Portada canción 2" />
+      <audio controls>
+        <source src="otra-cancion.mp3" type="audio/mpeg" />
+        Tu navegador no soporta el reproductor de audio.
+      </audio>
+    </div>    <div class="song">
+      <img src="imagen2.jpg" alt="Portada canción 2" />
+      <audio controls>
+        <source src="otra-cancion.mp3" type="audio/mpeg" />
+        Tu navegador no soporta el reproductor de audio.
+      </audio>
+    </div>    <div class="song">
+      <img src="imagen2.jpg" alt="Portada canción 2" />
+      <audio controls>
+        <source src="otra-cancion.mp3" type="audio/mpeg" />
+        Tu navegador no soporta el reproductor de audio.
+      </audio>
+    </div>
+
+    <!-- Puedes duplicar estos bloques y cambiar src de imagen y audio -->
+  </div>
+
+  <script>
+    function toggleNavbar() {
+      const sidebar = document.getElementById("sidebar");
+      document.body.classList.toggle("sidebar-open");
+      sidebar.classList.toggle("open");
+    }
+
+    // Corazones animados
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+      heart.innerText = "❤️";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }, 500);
+  </script>
+</body>
+</html>
