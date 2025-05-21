@@ -18,7 +18,6 @@
       transition: padding-left 0.3s ease;
     }
 
-    /* Navbar y sidebar */
     .menu-icon-container {
       position: fixed;
       top: 10px;
@@ -76,7 +75,6 @@
       padding-left: 250px;
     }
 
-    /* Header fijo */
     header {
       position: fixed;
       top: 0;
@@ -95,14 +93,12 @@
       z-index: 900;
     }
 
-    /* Contenedor centrado */
     .page-wrapper {
       display: flex;
       justify-content: center;
       width: 100%;
     }
 
-    /* Contenedor ludoteca - grid 3 columnas x 5 filas exacto */
     main.ludoteca-container {
       margin-top: 90px;
       max-width: 960px;
@@ -110,10 +106,21 @@
       padding: 20px;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(5, 1fr);
       gap: 20px;
       box-sizing: border-box;
       min-height: calc(100vh - 90px);
+    }
+
+    @media (max-width: 900px) {
+      main.ludoteca-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      main.ludoteca-container {
+        grid-template-columns: 1fr;
+      }
     }
 
     .ludoteca-item {
@@ -145,7 +152,7 @@
       object-fit: contain;
       margin-bottom: 10px;
       box-shadow: 0 2px 6px rgba(122, 92, 158, 0.4);
-      pointer-events: none; /* para que el click pase al contenedor */
+      pointer-events: none;
     }
 
     .ludoteca-item p {
@@ -154,7 +161,6 @@
       user-select: none;
     }
 
-    /* Nuevo estilo para el texto extra */
     .descripcion {
       font-size: 0.9rem;
       font-style: italic;
@@ -163,7 +169,6 @@
       user-select: none;
     }
 
-    /* Pop-up imagen */
     #popup-overlay {
       position: fixed;
       top: 0;
@@ -175,7 +180,7 @@
       justify-content: center;
       align-items: center;
       z-index: 1100;
-      cursor: pointer; /* cursor de clic para todo el overlay */
+      cursor: pointer;
     }
 
     #popup-overlay.open {
@@ -188,8 +193,8 @@
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(255, 192, 203, 0.9);
       object-fit: contain;
-      cursor: auto; /* para que la imagen no muestre cursor de clic */
-      pointer-events: auto; /* permite que imagen reciba eventos */
+      cursor: auto;
+      pointer-events: auto;
     }
 
     #popup-overlay .close-btn {
@@ -206,7 +211,6 @@
       z-index: 1200;
     }
 
-    /* Corazones descendiendo */
     .heart {
       position: fixed;
       top: -10px;
@@ -248,11 +252,14 @@
 
   <div class="page-wrapper">
     <main class="ludoteca-container">
-      <div class="ludoteca-item" tabindex="0" aria-label="Abrir imagen Juego 1">
+      <!-- Aquí van todos tus .ludoteca-item existentes -->
+      <!-- Por ejemplo: -->
+      <div class="ludoteca-item" tabindex="0">
         <img src="img1.jpg" alt="Juego 1" />
         <p>El primer collar que te obsequie</p>
-        <p class="descripcion">Realmente no hay mucho que decir amor, lo vi y pense en ti lo compre con la ilusion de poder darte un momento feliz</p>
+        <p class="descripcion">Realmente no hay mucho que decir amor, lo vi y pensé en ti...</p>
       </div>
+      <!-- Repite los demás items aquí -->
       <div class="ludoteca-item" tabindex="0" aria-label="Abrir imagen Juego 2">
         <img src="img2.jpg" alt="Juego 2" />
         <p>"JAMAS UNO, SIN EL OTRO..."</p>
@@ -327,24 +334,15 @@ Así, nunca estarás sola, porque en cada momento, mi cariño está contigo.</p>
         <p>Juegos que nos unen</p>
         <p class="descripcion
 
+    </main>
+  </div>
 
-
-
-
-
-ChatGPT dijo:
-">Nuestro amor hecho juego.</p>
-</div>
-<div class="ludoteca-item" tabindex="0" aria-label="Abrir imagen Juego 14">
-<img src="img14.jpg" alt="Juego 14" />
-<p>Jugando como niños</p>
-<p class="descripcion">La inocencia de nuestro amor.</p>
-</div>
-<div class="ludoteca-item" tabindex="0" aria-label="Abrir imagen Juego 15">
-<img src="img15.jpg" alt="Juego 15" />
-<p>Nuestro juego favorito</p>
-<p class="descripcion">Nunca dejamos de jugar.</p>
-</div>
-</main>
-
-</div> <div id="popup-overlay"> <button class="close-btn" aria-label="Cerrar imagen">&times;</button> <img id="popup-image" src="" alt="Imagen ampliada" /> </div> <script> function toggleNavbar() { const sidebar = document.getElementById("sidebar"); const body = document.body; sidebar.classList.toggle("open"); body.classList.toggle("sidebar-open"); } const popupOverlay = document.getElementById("popup-overlay"); const popupImage = document.getElementById("popup-image"); const closeBtn = popupOverlay.querySelector(".close-btn"); document.querySelectorAll(".ludoteca-item").forEach((item) => { item.addEventListener("click", () => { const img = item.querySelector("img"); popupImage.src = img.src; popupImage.alt = img.alt; popupOverlay.classList.add("open"); }); item.addEventListener("keypress", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); item.click(); } }); }); closeBtn.addEventListener("click", () => { popupOverlay.classList.remove("open"); popupImage.src = ""; popupImage.alt = ""; }); popupOverlay.addEventListener("click", () => { closeBtn.click(); }); </script> </body> </html> 
+  <script>
+    function toggleNavbar() {
+      const sidebar = document.getElementById("sidebar");
+      sidebar.classList.toggle("open");
+      document.body.classList.toggle("sidebar-open");
+    }
+  </script>
+</body>
+</html>
