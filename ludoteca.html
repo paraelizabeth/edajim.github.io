@@ -80,7 +80,7 @@
       height: 70px;
       background: linear-gradient(90deg, #f8c8dc, #d8b4e2);
       color: #825f9a;
-      font-size: 2rem;
+      font-size: clamp(1rem, 5vw, 2rem); /* RESPONSIVO */
       font-weight: bold;
       display: flex;
       align-items: center;
@@ -88,6 +88,7 @@
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
       z-index: 900;
       text-align: center;
+      padding: 0 10px;
     }
 
     .page-wrapper {
@@ -219,7 +220,7 @@
       }
 
       header {
-        font-size: 1.4rem;
+        font-size: clamp(1rem, 6vw, 1.5rem); /* Aún más adaptable en pantallas muy pequeñas */
         height: 60px;
       }
 
@@ -258,7 +259,6 @@
   <div class="page-wrapper">
     <main class="ludoteca-container">
       <!-- Tus items aquí -->
-      <!-- Ejemplo de un item -->
       <div class="ludoteca-item">
         <img src="img1.jpg" alt="Juego 1" />
         <p>El primer collar que te obsequié</p>
@@ -348,7 +348,7 @@ Así, nunca estarás sola, porque en cada momento, mi cariño está contigo.</p>
 <p>Nuestro juego favorito</p>
 <p class="descripcion">Nunca dejamos de jugar.</p>
 </div>
-      <!-- Continúa con tus items -->
+      <!-- Continúa con más items si deseas -->
     </main>
   </div>
 
