@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ver mensaje</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Mismo CSS que en formulario.html */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: "Arial", sans-serif;
+      background: linear-gradient(to bottom right, #f8c8dc, #d8b4e2);
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: padding-left 0.3s ease;
+      min-height: 100vh;
+      position: relative;
+    }
+    body.sidebar-open {
+      padding-left: 250px;
+    }
+
+    .menu-icon-container {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 1000;
+    }
+    .menu-icon {
+      font-size: 30px;
+      color: white;
+      background-color: #f7a9c4;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+    .menu-icon:hover {
+      background-color: #f47cae;
+    }
+
+    .navbar {
+      height: 100vh;
+      width: 250px;
+      background-color: #cba4e5;
+      position: fixed;
+      left: -250px;
+      top: 0;
+      transition: left 0.3s ease;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-top: 60px;
+    }
+    .navbar.open {
+      left: 0;
+    }
+    .navbar a {
+      display: block;
+      color: white;
+      padding: 16px;
+      text-decoration: none;
+      font-size: 18px;
+      width: 100%;
+      text-align: center;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+    .navbar a:hover {
+      background-color: #b282cc;
+    }
+
+    header {
+      width: 100%;
+      background: linear-gradient(90deg, #f8c8dc, #d8b4e2);
+      padding: 20px 0;
+      text-align: center;
+      color: #825f9a;
+      font-size: 2rem;
+      font-weight: bold;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 500;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      user-select: none;
+    }
+
+    .content {
+      max-width: 800px;
+      padding: 20px;
+      text-align: center;
+      color: #825f9a;
+      margin-top: 120px;
+      width: 90%;
+    }
+    .content h1 {
+      font-size: 2rem;
+      margin-bottom: 12px;
+      user-select: none;
+    }
+    .mensaje-box {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      font-size: 1.2rem;
+      color: #333;
+      white-space: pre-wrap;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        font-size: 1.5rem;
+        padding: 15px;
+      }
+      .menu-icon {
+        font-size: 24px;
+        padding: 8px;
+      }
+      .content h1 {
+        font-size: 1.5rem;
+      }
+      .mensaje-box {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>Mensaje Guardado</header>
+
+  <div class="menu-icon-container">
+    <div class="menu-icon" onclick="toggleSidebar()">☰</div>
+  </div>
+
+  <nav class="navbar" id="sidebar">
+    <a href="formulario.html">Escribir</a>
+    <a href="ver.html">Ver mensaje</a>
+  </nav>
+
+  <div class="content">
+    <h1>Tu mensaje</h1>
+    <div class="mensaje-box" id="mostrar">Cargando mensaje...</div>
+  </div>
+
+  <script>
+    const mostrar = document.getElementById('mostrar');
+    const mensaje = localStorage.getItem('mensajeGuardado');
+    mostrar.textContent = mensaje || 'No hay mensaje guardado aún.';
+
+    function toggleSidebar() {
+      const body = document.body;
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('open');
+      body.classList.toggle('sidebar-open');
+    }
+  </script>
+</body>
+</html>
