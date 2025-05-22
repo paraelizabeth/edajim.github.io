@@ -42,8 +42,6 @@
       cursor: pointer;
       border-radius: 5px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-      user-select: none;
-      transition: background-color 0.3s ease;
     }
     .menu-icon:hover {
       background-color: #f47cae;
@@ -77,13 +75,11 @@
       width: 100%;
       text-align: center;
       font-weight: 600;
-      transition: background-color 0.3s ease;
     }
     .navbar a:hover {
       background-color: #b282cc;
     }
 
-    /* Header fijo */
     header {
       width: 100%;
       background: linear-gradient(90deg, #f8c8dc, #d8b4e2);
@@ -97,10 +93,8 @@
       left: 0;
       z-index: 500;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      user-select: none;
     }
 
-    /* Icono carrito */
     .cart-icon {
       position: fixed;
       top: 20px;
@@ -113,15 +107,12 @@
       cursor: pointer;
       z-index: 1001;
       box-shadow: 0 2px 6px rgba(130,95,154,0.4);
-      transition: background-color 0.3s ease, color 0.3s ease;
-      user-select: none;
     }
     .cart-icon:hover {
       background-color: #d8b4e2;
       color: #fff;
     }
 
-    /* Popup carrito */
     .cart-popup {
       position: fixed;
       top: 70px;
@@ -134,7 +125,6 @@
       padding: 20px;
       display: none;
       z-index: 1100;
-      font-family: Arial, sans-serif;
       color: #5e3d7a;
     }
     .cart-popup h2 {
@@ -144,14 +134,11 @@
       color: #825f9a;
       border-bottom: 1px solid #d8b4e2;
       padding-bottom: 8px;
-      user-select: none;
     }
     .cart-item {
       display: flex;
       justify-content: space-between;
       margin-bottom: 12px;
-      font-size: 1rem;
-      user-select: none;
     }
     .cart-total {
       border-top: 1px solid #d8b4e2;
@@ -159,10 +146,8 @@
       font-weight: bold;
       font-size: 1.2rem;
       text-align: right;
-      user-select: none;
     }
 
-    /* Carrusel */
     .carousel {
       margin-top: 120px;
       width: 100%;
@@ -171,7 +156,6 @@
       position: relative;
       overflow: hidden;
       border-radius: 15px;
-      background: transparent;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -195,15 +179,8 @@
       object-fit: contain;
       border-radius: 15px;
       cursor: pointer;
-      background: transparent;
-      user-select: none;
-      transition: transform 0.3s ease;
-    }
-    .slide img:hover {
-      transform: scale(1.05);
     }
 
-    /* Contenido central */
     .content {
       max-width: 800px;
       padding: 20px;
@@ -213,12 +190,10 @@
     .content h1 {
       font-size: 2rem;
       margin-bottom: 12px;
-      user-select: none;
     }
     .content p {
       font-size: 1.1rem;
       margin-bottom: 20px;
-      user-select: none;
     }
     button {
       background-color: #d8b4e2;
@@ -227,16 +202,13 @@
       padding: 12px 28px;
       border-radius: 10px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
       font-weight: 600;
       font-size: 1rem;
-      user-select: none;
     }
     button:hover {
       background-color: #b28dd1;
     }
 
-    /* Corazones animados */
     .heart {
       position: fixed;
       top: -10px;
@@ -244,21 +216,13 @@
       font-size: 20px;
       animation: fall linear infinite;
       pointer-events: none;
-      user-select: none;
       text-shadow: 0 0 6px #fff;
     }
     @keyframes fall {
-      0% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh);
-        opacity: 0;
-      }
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
     }
 
-    /* Popup imagen grande */
     .img-popup {
       position: fixed;
       top: 0;
@@ -271,7 +235,6 @@
       align-items: center;
       z-index: 1200;
       cursor: pointer;
-      user-select: none;
     }
     .img-popup img {
       max-width: 90%;
@@ -280,17 +243,12 @@
       box-shadow: 0 0 20px #fff;
     }
 
-    /* Responsivo */
     @media (max-width: 600px) {
       header {
         font-size: 1.5rem;
         padding: 15px;
       }
-      .menu-icon {
-        font-size: 24px;
-        padding: 8px;
-      }
-      .cart-icon {
+      .menu-icon, .cart-icon {
         font-size: 24px;
         padding: 8px;
       }
@@ -305,60 +263,46 @@
       }
       .carousel {
         height: 280px;
-        aspect-ratio: 4 / 3;
         margin-top: 90px;
       }
     }
   </style>
 </head>
 <body>
-  <header>
-    Tú y Yo ❤️ Un lugar para nuestros momentos
-  </header>
+  <header>Tú y Yo ❤️ Un lugar para nuestros momentos</header>
 
   <div class="menu-icon-container">
-    <div class="menu-icon" aria-label="Abrir menú" role="button" tabindex="0" onclick="toggleNavbar()" onkeydown="if(event.key==='Enter') toggleNavbar()">
+    <div class="menu-icon" onclick="toggleNavbar()">
       <i class="fas fa-bars"></i>
     </div>
   </div>
 
-  <nav class="navbar" id="sidebar" aria-label="Navegación principal">
+  <nav class="navbar" id="sidebar">
     <a href="index.html">Inicio</a>
     <a href="ludoteca.html">Ludoteca</a>
     <a href="multimedia.html">Multimedia</a>
     <a href="contacto.html">Contactos</a>
-    <a href="emergencia.html">SI ALGUN DIA ME EXTRAÑAS...USALO</a>
+    <a href="emergencia.html">SI ALGUN DÍA ME EXTRAÑAS... ÚSALO</a>
   </nav>
 
-  <div class="cart-icon" aria-label="Abrir carrito de compras" role="button" tabindex="0" onclick="toggleCart()" onkeydown="if(event.key==='Enter') toggleCart()">
+  <div class="cart-icon" onclick="toggleCart()">
     <i class="fas fa-shopping-cart"></i>
   </div>
 
-  <section class="cart-popup" id="cart-popup" aria-live="polite" aria-atomic="true" role="region">
+  <section class="cart-popup" id="cart-popup">
     <h2>Carrito de compras</h2>
-    <div class="cart-item">
-      <span>Producto 1</span>
-      <span>$120</span>
-    </div>
-    <div class="cart-item">
-      <span>Producto 2</span>
-      <span>$80</span>
-    </div>
-    <div class="cart-item">
-      <span>Producto 3</span>
-      <span>$50</span>
-    </div>
-    <div class="cart-total">
-      Total: $250
-    </div>
+    <div class="cart-item"><span>Producto 1</span><span>$120</span></div>
+    <div class="cart-item"><span>Producto 2</span><span>$80</span></div>
+    <div class="cart-item"><span>Producto 3</span><span>$50</span></div>
+    <div class="cart-total">Total: $250</div>
   </section>
 
-  <section class="carousel" aria-label="Galería de imágenes">
+  <section class="carousel">
     <div class="slides" id="slides">
-      <div class="slide"><img src="foto1.jpg" alt="Imagen 1 - Tú y Yo" tabindex="0" /></div>
-      <div class="slide"><img src="foto2.jpg" alt="Imagen 2 - Momentos juntos" tabindex="0" /></div>
-      <div class="slide"><img src="foto3.jpg" alt="Imagen 3 - Recuerdos felices" tabindex="0" /></div>
-      <div class="slide"><img src="foto4.jpg" alt="Imagen 4 - Amor y alegría" tabindex="0" /></div>
+      <div class="slide"><img src="foto1.jpg" alt="Imagen 1 - Tú y Yo" /></div>
+      <div class="slide"><img src="foto2.jpg" alt="Imagen 2 - Momentos juntos" /></div>
+      <div class="slide"><img src="foto3.jpg" alt="Imagen 3 - Recuerdos felices" /></div>
+      <div class="slide"><img src="foto4.jpg" alt="Imagen 4 - Amor y alegría" /></div>
     </div>
   </section>
 
@@ -368,25 +312,27 @@
     <button onclick="alert('Gracias por visitarnos ❤️')">Dale click aquí</button>
   </main>
 
-  <div class="img-popup" id="img-popup" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1" onclick="closePopup()">
+  <div class="img-popup" id="img-popup" onclick="closePopup()">
     <img src="" alt="Imagen ampliada" id="popup-img" />
   </div>
 
+  <!-- Música de fondo -->
+  <audio autoplay loop>
+    <source src="omarpbz.mp3" type="audio/mpeg" />
+    Tu navegador no soporta audio HTML5.
+  </audio>
+
   <script>
-    // Toggle sidebar menu
     function toggleNavbar() {
-      const sidebar = document.getElementById('sidebar');
-      sidebar.classList.toggle('open');
+      document.getElementById('sidebar').classList.toggle('open');
       document.body.classList.toggle('sidebar-open');
     }
 
-    // Toggle cart popup
     function toggleCart() {
       const cart = document.getElementById('cart-popup');
       cart.style.display = cart.style.display === 'block' ? 'none' : 'block';
     }
 
-    // Carrusel automático con bucle infinito lento
     const slides = document.getElementById('slides');
     const totalSlides = slides.children.length;
     let currentIndex = 0;
@@ -396,29 +342,21 @@
       slides.style.transform = `translateX(-${currentIndex * 100}%)`;
     }
 
-    setInterval(showNextSlide, 7000); // Cambia cada 7 segundos
+    setInterval(showNextSlide, 7000);
 
-    // Popup imagen ampliada al hacer click en la imagen del carrusel
     const popup = document.getElementById('img-popup');
     const popupImg = document.getElementById('popup-img');
-    const slideImages = document.querySelectorAll('.slide img');
-
-    slideImages.forEach(img => {
+    document.querySelectorAll('.slide img').forEach(img => {
       img.addEventListener('click', () => {
         popupImg.src = img.src;
-        popupImg.alt = img.alt;
         popup.style.display = 'flex';
-        popup.setAttribute('aria-hidden', 'false');
-        popup.focus();
       });
     });
 
     function closePopup() {
       popup.style.display = 'none';
-      popup.setAttribute('aria-hidden', 'true');
     }
 
-    // Animar corazones caídos
     function createHeart() {
       const heart = document.createElement('div');
       heart.classList.add('heart');
@@ -427,14 +365,10 @@
       heart.style.animationDuration = (5 + Math.random() * 5) + 's';
       heart.textContent = '❤️';
       document.body.appendChild(heart);
-
-      setTimeout(() => {
-        heart.remove();
-      }, 10000); // Eliminar después de 10 segundos
+      setTimeout(() => heart.remove(), 10000);
     }
 
     setInterval(createHeart, 300);
-
   </script>
 </body>
 </html>
