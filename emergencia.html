@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tú y Yo</title>
-  <meta name="description" content="Un sitio conmemorativo para Elizabeth y Carlos." />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <meta charset="UTF-8">
+  <title>Escribir mensaje</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* Reset y base */
+    /* Pegamos todo el CSS aquí (el mismo que compartiste) */
     * {
       box-sizing: border-box;
     }
@@ -27,7 +25,6 @@
       padding-left: 250px;
     }
 
-    /* Icono menú hamburguesa */
     .menu-icon-container {
       position: fixed;
       top: 10px;
@@ -49,7 +46,6 @@
       background-color: #f47cae;
     }
 
-    /* Sidebar navbar */
     .navbar {
       height: 100vh;
       width: 250px;
@@ -83,7 +79,6 @@
       background-color: #b282cc;
     }
 
-    /* Header fijo */
     header {
       width: 100%;
       background: linear-gradient(90deg, #f8c8dc, #d8b4e2);
@@ -100,125 +95,31 @@
       user-select: none;
     }
 
-    /* Icono carrito */
-    .cart-icon {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      font-size: 28px;
-      color: #825f9a;
-      background: #f8c8dc;
-      padding: 10px;
-      border-radius: 50%;
-      cursor: pointer;
-      z-index: 1001;
-      box-shadow: 0 2px 6px rgba(130,95,154,0.4);
-      transition: background-color 0.3s ease, color 0.3s ease;
-      user-select: none;
-    }
-    .cart-icon:hover {
-      background-color: #d8b4e2;
-      color: #fff;
-    }
-
-    /* Popup carrito */
-    .cart-popup {
-      position: fixed;
-      top: 70px;
-      right: 20px;
-      width: 90%;
-      max-width: 320px;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(130, 95, 154, 0.3);
-      padding: 20px;
-      display: none;
-      z-index: 1100;
-      font-family: Arial, sans-serif;
-      color: #5e3d7a;
-    }
-    .cart-popup h2 {
-      margin-top: 0;
-      margin-bottom: 15px;
-      font-size: 1.5rem;
-      color: #825f9a;
-      border-bottom: 1px solid #d8b4e2;
-      padding-bottom: 8px;
-      user-select: none;
-    }
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 12px;
-      font-size: 1rem;
-      user-select: none;
-    }
-    .cart-total {
-      border-top: 1px solid #d8b4e2;
-      padding-top: 12px;
-      font-weight: bold;
-      font-size: 1.2rem;
-      text-align: right;
-      user-select: none;
-    }
-
-    /* Carrusel */
-    .carousel {
-      margin-top: 120px;
-      width: 100%;
-      max-width: 800px;
-      height: 450px;
-      position: relative;
-      overflow: hidden;
-      border-radius: 15px;
-      background: transparent;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0 8px 20px rgba(130, 95, 154, 0.15);
-    }
-    .slides {
-      display: flex;
-      transition: transform 1s ease-in-out;
-      width: 400%;
-      height: 100%;
-    }
-    .slide {
-      flex: 0 0 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 15px;
-      cursor: pointer;
-      background: transparent;
-      user-select: none;
-      transition: transform 0.3s ease;
-    }
-    .slide img:hover {
-      transform: scale(1.05);
-    }
-
-    /* Contenido central */
     .content {
       max-width: 800px;
       padding: 20px;
       text-align: center;
       color: #825f9a;
+      margin-top: 120px;
+      width: 90%;
     }
     .content h1 {
       font-size: 2rem;
       margin-bottom: 12px;
       user-select: none;
     }
-    .content p {
-      font-size: 1.1rem;
-      margin-bottom: 20px;
-      user-select: none;
+    textarea {
+      width: 100%;
+      max-width: 100%;
+      min-height: 150px;
+      padding: 15px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      resize: vertical;
+      font-family: Arial, sans-serif;
+      background: #fff;
+      color: #333;
     }
     button {
       background-color: #d8b4e2;
@@ -230,57 +131,12 @@
       transition: background-color 0.3s ease;
       font-weight: 600;
       font-size: 1rem;
-      user-select: none;
+      margin-top: 15px;
     }
     button:hover {
       background-color: #b28dd1;
     }
 
-    /* Corazones animados */
-    .heart {
-      position: fixed;
-      top: -10px;
-      color: #f8c8dc;
-      font-size: 20px;
-      animation: fall linear infinite;
-      pointer-events: none;
-      user-select: none;
-      text-shadow: 0 0 6px #fff;
-    }
-    @keyframes fall {
-      0% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh);
-        opacity: 0;
-      }
-    }
-
-    /* Popup imagen grande */
-    .img-popup {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.8);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1200;
-      cursor: pointer;
-      user-select: none;
-    }
-    .img-popup img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 15px;
-      box-shadow: 0 0 20px #fff;
-    }
-
-    /* Responsivo */
     @media (max-width: 600px) {
       header {
         font-size: 1.5rem;
@@ -290,78 +146,57 @@
         font-size: 24px;
         padding: 8px;
       }
-      .cart-icon {
-        font-size: 24px;
-        padding: 8px;
-      }
       .content h1 {
         font-size: 1.5rem;
       }
-      .content p {
+      textarea {
         font-size: 1rem;
-      }
-      button {
-        padding: 10px 20px;
-      }
-      .carousel {
-        height: 280px;
-        aspect-ratio: 4 / 3;
-        margin-top: 90px;
       }
     }
   </style>
 </head>
 <body>
-  <header>
-    Tú y Yo ❤️ Enviar mensaje
-  </header>
+  <header>Escribir Mensaje</header>
 
   <div class="menu-icon-container">
-    <div class="menu-icon" aria-label="Abrir menú" role="button" tabindex="0" onclick="toggleNavbar()" onkeydown="if(event.key==='Enter') toggleNavbar()">
-      <i class="fas fa-bars"></i>
-    </div>
+    <div class="menu-icon" onclick="toggleSidebar()">☰</div>
   </div>
 
-  <nav class="navbar" id="sidebar" aria-label="Navegación principal">
-    <a href="index.html">Inicio</a>
-    <a href="ludoteca.html">Ludoteca</a>
-    <a href="multimedia.html">Multimedia</a>
-    <a href="#contactos">Contactos</a>
+  <nav class="navbar" id="sidebar">
+    <a href="formulario.html">Escribir</a>
+    <a href="ver.html">Ver mensaje</a>
   </nav>
 
-  <main>
-    <h2>Escribe tu mensaje para Carlos</h2>
-    <form id="messageForm">
-      <label for="message">Mensaje de emergencia:</label>
-      <textarea id="message" name="message" maxlength="300" placeholder="Escribe aquí tu mensaje..." required></textarea>
-      <button type="submit">Guardar mensaje</button>
+  <div class="content">
+    <h1>Deja tu mensaje especial</h1>
+    <form id="form">
+      <textarea id="mensaje" placeholder="Escribe tu mensaje..."></textarea><br>
+      <button type="submit">Guardar</button>
     </form>
-    <p class="info">El mensaje aparecerá visible en el carrito de compras de la página principal.</p>
-  </main>
+  </div>
 
   <script>
-    // Toggle sidebar menu
-    function toggleNavbar() {
+    const form = document.getElementById('form');
+    const textarea = document.getElementById('mensaje');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const mensaje = textarea.value.trim();
+      if (mensaje) {
+        localStorage.setItem('mensajeGuardado', mensaje);
+        alert('Mensaje guardado.');
+        textarea.value = '';
+      } else {
+        alert('Por favor escribe algo.');
+      }
+    });
+
+    function toggleSidebar() {
+      const body = document.body;
       const sidebar = document.getElementById('sidebar');
       sidebar.classList.toggle('open');
-      document.body.classList.toggle('sidebar-open');
+      body.classList.toggle('sidebar-open');
     }
-
-    // Guardar mensaje en localStorage al enviar formulario
-    const form = document.getElementById('messageForm');
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const msg = document.getElementById('message').value.trim();
-      if (msg === '') {
-        alert('Por favor, escribe un mensaje antes de guardar.');
-        return;
-      }
-      localStorage.setItem('emergencyMessage', msg);
-      alert('Mensaje guardado con éxito. Ahora aparecerá en la página principal.');
-      // Opcional: limpiar textarea o redirigir a index
-      // form.reset();
-      // window.location.href = 'index.html';
-    });
   </script>
 </body>
 </html>
