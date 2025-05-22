@@ -5,17 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>¿Me Extrañas?</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
     body {
       font-family: Arial, sans-serif;
       background: linear-gradient(to right, #f8c8dc, #d8b4e2);
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 40px 15px;
-      margin: 0;
+      padding: 60px 20px;
       color: #5e3d7a;
     }
     h1 {
@@ -30,6 +26,7 @@
       box-shadow: 0 4px 15px rgba(130, 95, 154, 0.2);
       max-width: 500px;
       width: 100%;
+      box-sizing: border-box;
     }
     textarea {
       width: 100%;
@@ -39,8 +36,8 @@
       border: 2px solid #d8b4e2;
       border-radius: 10px;
       resize: none;
-      margin-top: 10px;
       margin-bottom: 15px;
+      box-sizing: border-box;
     }
     button {
       padding: 10px 20px;
@@ -50,7 +47,7 @@
       border-radius: 10px;
       font-size: 1rem;
       cursor: pointer;
-      width: 100%;
+      margin-right: 10px;
     }
     button:hover {
       background: #b28dd1;
@@ -59,6 +56,7 @@
       margin-top: 30px;
       max-width: 500px;
       width: 100%;
+      box-sizing: border-box;
     }
     .mensaje-item {
       background: #fff;
@@ -67,24 +65,42 @@
       margin-bottom: 10px;
       border-radius: 10px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      position: relative;
     }
-
-    @media (max-width: 400px) {
-      body {
-        padding: 20px 10px;
+    .mensaje-item button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #f78da7;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    @media screen and (max-width: 600px) {
+      form, .mensajes {
+        padding: 15px;
       }
-      h1 {
-        font-size: 1.5rem;
+      textarea {
+        height: 100px;
+      }
+      button {
+        width: 100%;
+        margin-bottom: 10px;
       }
     }
   </style>
 </head>
 <body>
   <h1>¿Me Extrañas?</h1>
+
   <form id="extraForm">
-    <label for="mensaje">Escríbeme si algún día me extrañas:</label>
-    <textarea id="mensaje" required placeholder="Querido Carlos..."></textarea>
+    <label for="mensaje">Escríbeme si algún día me extrañas:</label><br>
+    <textarea id="mensaje" required placeholder="Querido Carlos..."></textarea><br>
     <button type="submit">Enviar</button>
+    <button type="button" onclick="borrarTodosLosMensajes()" style="background:#f78da7;">Borrar todos los mensajes</button>
   </form>
 
   <div class="mensajes" id="mensajes"></div>
@@ -94,17 +110,22 @@
     const textarea = document.getElementById('mensaje');
     const mensajesDiv = document.getElementById('mensajes');
 
+    // Cargar mensajes guardados
     function cargarMensajes() {
       const guardados = JSON.parse(localStorage.getItem('extraMensajes')) || [];
       mensajesDiv.innerHTML = '';
-      guardados.forEach(msg => {
+      guardados.forEach((msg, index) => {
         const div = document.createElement('div');
         div.className = 'mensaje-item';
-        div.textContent = msg;
+        div.innerHTML = `
+          <span>${msg}</span>
+          <button onclick="borrarMensaje(${index})">X</button>
+        `;
         mensajesDiv.appendChild(div);
       });
     }
 
+    // Guardar nuevo mensaje
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const texto = textarea.value.trim();
@@ -116,6 +137,20 @@
         cargarMensajes();
       }
     });
+
+    // Borrar todos los mensajes
+    function borrarTodosLosMensajes() {
+      localStorage.removeItem('extraMensajes');
+      cargarMensajes();
+    }
+
+    // Borrar mensaje individual
+    function borrarMensaje(index) {
+      const guardados = JSON.parse(localStorage.getItem('extraMensajes')) || [];
+      guardados.splice(index, 1);
+      localStorage.setItem('extraMensajes', JSON.stringify(guardados));
+      cargarMensajes();
+    }
 
     cargarMensajes();
   </script>
