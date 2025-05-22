@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Enviar Mensaje - Tú y Yo</title>
+  <title>Tú y Yo</title>
+  <meta name="description" content="Un sitio conmemorativo para Elizabeth y Carlos." />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
-    /* Usa aquí el mismo CSS que en index.html para mantener diseño consistente */
-    /* (Por brevedad no repito, solo adapta el body, header, navbar, botón y formulario) */
-
+    /* Reset y base */
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
       font-family: "Arial", sans-serif;
@@ -17,25 +19,37 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      transition: padding-left 0.3s ease;
       min-height: 100vh;
       position: relative;
-      padding-top: 70px; /* para header fijo */
     }
-    header {
-      width: 100%;
-      background: linear-gradient(90deg, #f8c8dc, #d8b4e2);
-      padding: 20px 0;
-      text-align: center;
-      color: #825f9a;
-      font-size: 2rem;
-      font-weight: bold;
+    body.sidebar-open {
+      padding-left: 250px;
+    }
+
+    /* Icono menú hamburguesa */
+    .menu-icon-container {
       position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 500;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      user-select: none;
+      top: 10px;
+      left: 10px;
+      z-index: 1000;
     }
+    .menu-icon {
+      font-size: 30px;
+      color: white;
+      background-color: #f7a9c4;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+    .menu-icon:hover {
+      background-color: #f47cae;
+    }
+
+    /* Sidebar navbar */
     .navbar {
       height: 100vh;
       width: 250px;
@@ -68,55 +82,143 @@
     .navbar a:hover {
       background-color: #b282cc;
     }
-    .menu-icon-container {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      z-index: 1000;
-    }
-    .menu-icon {
-      font-size: 30px;
-      color: white;
-      background-color: #f7a9c4;
-      padding: 10px;
-      cursor: pointer;
-      border-radius: 5px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-      user-select: none;
-      transition: background-color 0.3s ease;
-    }
-    .menu-icon:hover {
-      background-color: #f47cae;
-    }
 
-    main {
-      margin-top: 20px;
-      max-width: 600px;
-      width: 90%;
-      background: #f7d6e9;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 6px 15px rgba(130, 95, 154, 0.25);
-      color: #6a3e75;
-      font-weight: 600;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 1.2rem;
-    }
-    textarea {
+    /* Header fijo */
+    header {
       width: 100%;
-      height: 120px;
+      background: linear-gradient(90deg, #f8c8dc, #d8b4e2);
+      padding: 20px 0;
+      text-align: center;
+      color: #825f9a;
+      font-size: 2rem;
+      font-weight: bold;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 500;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      user-select: none;
+    }
+
+    /* Icono carrito */
+    .cart-icon {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 28px;
+      color: #825f9a;
+      background: #f8c8dc;
       padding: 10px;
-      border-radius: 8px;
-      border: 2px solid #b28dd1;
-      resize: none;
-      font-size: 1rem;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 1001;
+      box-shadow: 0 2px 6px rgba(130,95,154,0.4);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      user-select: none;
+    }
+    .cart-icon:hover {
+      background-color: #d8b4e2;
+      color: #fff;
+    }
+
+    /* Popup carrito */
+    .cart-popup {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      width: 90%;
+      max-width: 320px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(130, 95, 154, 0.3);
+      padding: 20px;
+      display: none;
+      z-index: 1100;
       font-family: Arial, sans-serif;
-      box-sizing: border-box;
+      color: #5e3d7a;
+    }
+    .cart-popup h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+      color: #825f9a;
+      border-bottom: 1px solid #d8b4e2;
+      padding-bottom: 8px;
+      user-select: none;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 1rem;
+      user-select: none;
+    }
+    .cart-total {
+      border-top: 1px solid #d8b4e2;
+      padding-top: 12px;
+      font-weight: bold;
+      font-size: 1.2rem;
+      text-align: right;
+      user-select: none;
+    }
+
+    /* Carrusel */
+    .carousel {
+      margin-top: 120px;
+      width: 100%;
+      max-width: 800px;
+      height: 450px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      background: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 8px 20px rgba(130, 95, 154, 0.15);
+    }
+    .slides {
+      display: flex;
+      transition: transform 1s ease-in-out;
+      width: 400%;
+      height: 100%;
+    }
+    .slide {
+      flex: 0 0 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 15px;
+      cursor: pointer;
+      background: transparent;
+      user-select: none;
+      transition: transform 0.3s ease;
+    }
+    .slide img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Contenido central */
+    .content {
+      max-width: 800px;
+      padding: 20px;
+      text-align: center;
+      color: #825f9a;
+    }
+    .content h1 {
+      font-size: 2rem;
+      margin-bottom: 12px;
+      user-select: none;
+    }
+    .content p {
+      font-size: 1.1rem;
       margin-bottom: 20px;
+      user-select: none;
     }
     button {
       background-color: #d8b4e2;
@@ -133,11 +235,79 @@
     button:hover {
       background-color: #b28dd1;
     }
-    .info {
-      margin-top: 15px;
-      color: #825f9a;
-      font-weight: 500;
-      font-size: 1rem;
+
+    /* Corazones animados */
+    .heart {
+      position: fixed;
+      top: -10px;
+      color: #f8c8dc;
+      font-size: 20px;
+      animation: fall linear infinite;
+      pointer-events: none;
+      user-select: none;
+      text-shadow: 0 0 6px #fff;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
+    /* Popup imagen grande */
+    .img-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1200;
+      cursor: pointer;
+      user-select: none;
+    }
+    .img-popup img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #fff;
+    }
+
+    /* Responsivo */
+    @media (max-width: 600px) {
+      header {
+        font-size: 1.5rem;
+        padding: 15px;
+      }
+      .menu-icon {
+        font-size: 24px;
+        padding: 8px;
+      }
+      .cart-icon {
+        font-size: 24px;
+        padding: 8px;
+      }
+      .content h1 {
+        font-size: 1.5rem;
+      }
+      .content p {
+        font-size: 1rem;
+      }
+      button {
+        padding: 10px 20px;
+      }
+      .carousel {
+        height: 280px;
+        aspect-ratio: 4 / 3;
+        margin-top: 90px;
+      }
     }
   </style>
 </head>
