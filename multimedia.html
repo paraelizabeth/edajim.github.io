@@ -36,8 +36,8 @@
 
     .menu-icon-container {
       position: fixed;
-      top: 10px;
-      left: 10px;
+      top: 15px;
+      left: 15px;
       z-index: 1001;
     }
 
@@ -48,6 +48,7 @@
       padding: 10px;
       cursor: pointer;
       border-radius: 5px;
+      user-select: none;
     }
 
     .navbar {
@@ -63,6 +64,8 @@
       align-items: center;
       transition: left 0.3s ease;
       z-index: 1000;
+      padding-top: 70px; /* para que no quede debajo del header */
+      box-sizing: border-box;
     }
 
     .navbar.open {
@@ -76,6 +79,7 @@
       font-size: 18px;
       width: 100%;
       text-align: center;
+      box-sizing: border-box;
     }
 
     .navbar a:hover {
@@ -86,8 +90,7 @@
       padding-left: 250px;
     }
 
-    /* Aquí empieza la modificación */
-
+    /* Contenido */
     .content {
       margin-top: 90px;
       padding: 20px;
@@ -96,8 +99,14 @@
       margin-right: auto;
 
       display: grid;
-      grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+      grid-template-columns: repeat(4, 1fr);
       gap: 20px;
+      transition: padding-left 0.3s ease;
+    }
+
+    /* Ajustar padding del content cuando navbar está abierta (por si acaso) */
+    body.sidebar-open .content {
+      /* Aquí no es necesario porque body ya tiene padding-left */
     }
 
     .song {
@@ -110,6 +119,10 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      transition: transform 0.2s ease;
+    }
+    .song:hover {
+      transform: scale(1.05);
     }
 
     .song img {
@@ -117,7 +130,7 @@
       border-radius: 10px;
       margin-bottom: 10px;
       object-fit: cover;
-      height: 150px; /* puedes ajustar altura */
+      height: 150px;
       width: 100%;
     }
 
@@ -140,8 +153,41 @@
     }
 
     @keyframes fall {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(100vh); opacity: 0; }
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .content {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 768px) {
+      .content {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      header {
+        font-size: 1.6rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .content {
+        grid-template-columns: 1fr;
+      }
+      .menu-icon-container {
+        top: 12px;
+        left: 12px;
+      }
+      header {
+        font-size: 1.4rem;
+      }
     }
   </style>
 </head>
@@ -161,7 +207,7 @@
     <a href="#contactos">Contactos</a>
   </nav>
 
-  <div class="content">
+  <main class="content">
     <div class="song">
       <img src="imagen1.jpg" alt="Portada canción 1" />
       <audio controls>
@@ -177,112 +223,9 @@
         Tu navegador no soporta el reproductor de audio.
       </audio>
     </div>
-        <div class="song">
-      <img src="imagen2.jpg" alt="Portada canción 2" />
-      <audio controls>
-        <source src="otra-cancion.mp3" type="audio/mpeg" />
-        Tu navegador no soporta el reproductor de audio.
-      </audio>
-    </div>    <div class="song">
-      <img src="imagen2.jpg" alt="Portada canción 2" />
-      <audio controls>
-        <source src="otra-cancion.mp3" type="audio/mpeg" />
-        Tu navegador no soporta el reproductor de audio.
-      </audio>
-    </div>    <div class="song">
-      <img src="imagen2.jpg" alt="Portada canción 2" />
-      <audio controls>
-        <source src="otra-cancion.mp3" type="audio/mpeg" />
-        Tu navegador no soporta el reproductor de audio.
-      </audio>
-    </div>    <div class="song">
-      <img src="imagen2.jpg" alt="Portada canción 2" />
-      <audio controls>
-        <source src="otra-cancion.mp3" type="audio/mpeg" />
-        Tu navegador no soporta el reproductor de audio.
-      </audio>
-    </div>    <div class="song">
-      <img src="imagen2.jpg" alt="Portada canción 2" />
-      <audio controls>
-        <source src="otra-cancion.mp3" type="audio/mpeg" />
-        Tu navegador no soporta el reproductor de audio.
-      </audio>
-    </div>    <div class="song">
-      <img src="imagen2.jpg" alt="Portada canción 2" />
-      <audio controls>
-        <source src="otra-cancion.mp3" type="audio/mpeg" />
-        Tu navegador no soporta el reproductor de audio.
-      </audio>
-    </div>    <div class="song">
-      <img src="imagen2.jpg" alt="Portada canción 2" />
-      <audio controls>
-        <source src="otra-cancion.mp3" type="audio/mpeg" />
-        Tu navegador no soporta el reproductor de audio.
-      </audio>
-    </div>    <div class="song">
-      <img src="imagen2.jpg" alt="Portada canción 2" />
-      <audio controls>
-        <source src="otra-cancion.mp3" type="audio/mpeg" />
-        Tu navegador no soporta el reproductor de audio.
-      </audio>
-    </div>    <div class="song">
-      <img src="imagen2.jpg" alt="Portada canción 2" />
-      <audio controls>
-        <source src="otra-cancion.mp3" type="audio/mpeg" />
-        Tu navegador no soporta el reproductor de audio.
-      </audio>
-    </div>    <div class="song">
-      <img src="imagen2.jpg" alt="Portada canción 2" />
-      <audio controls>
-        <source src="otra-cancion.mp3" type="audio/mpeg" />
-        Tu navegador no soporta el reproductor de audio.
-      </audio>
-    </div>    <div class="song">
-      <img src="imagen2.jpg" alt="Portada canción 2" />
-      <audio controls>
-        <source src="otra-cancion.mp3" type="audio/mpeg" />
-        Tu navegador no soporta el reproductor de audio.
-      </audio>
-    </div>    <div class="song">
-      <img src="imagen2.jpg" alt="Portada canción 2" />
-      <audio controls>
-        <source src="otra-cancion.mp3" type="audio/mpeg" />
-        Tu navegador no soporta el reproductor de audio.
-      </audio>
-    </div>    <div class="song">
-      <img src="imagen2.jpg" alt="Portada canción 2" />
-      <audio controls>
-        <source src="otra-cancion.mp3" type="audio/mpeg" />
-        Tu navegador no soporta el reproductor de audio.
-      </audio>
-    </div>    <div class="song">
-      <img src="imagen2.jpg" alt="Portada canción 2" />
-      <audio controls>
-        <source src="otra-cancion.mp3" type="audio/mpeg" />
-        Tu navegador no soporta el reproductor de audio.
-      </audio>
-    </div>    <div class="song">
-      <img src="imagen2.jpg" alt="Portada canción 2" />
-      <audio controls>
-        <source src="otra-cancion.mp3" type="audio/mpeg" />
-        Tu navegador no soporta el reproductor de audio.
-      </audio>
-    </div>    <div class="song">
-      <img src="imagen2.jpg" alt="Portada canción 2" />
-      <audio controls>
-        <source src="otra-cancion.mp3" type="audio/mpeg" />
-        Tu navegador no soporta el reproductor de audio.
-      </audio>
-    </div>    <div class="song">
-      <img src="imagen2.jpg" alt="Portada canción 2" />
-      <audio controls>
-        <source src="otra-cancion.mp3" type="audio/mpeg" />
-        Tu navegador no soporta el reproductor de audio.
-      </audio>
-    </div>
 
-    <!-- Puedes duplicar estos bloques y cambiar src de imagen y audio -->
-  </div>
+    <!-- Añade aquí más canciones si quieres -->
+  </main>
 
   <script>
     function toggleNavbar() {
