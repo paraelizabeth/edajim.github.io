@@ -2,157 +2,30 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>¿Me Extrañas?</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #f8c8dc, #d8b4e2);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 60px 20px;
-      color: #5e3d7a;
-    }
-    h1 {
-      margin-bottom: 20px;
-      font-size: 2rem;
-      text-align: center;
-    }
-    form {
-      background: white;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(130, 95, 154, 0.2);
-      max-width: 500px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    textarea {
-      width: 100%;
-      height: 120px;
-      padding: 10px;
-      font-size: 1rem;
-      border: 2px solid #d8b4e2;
-      border-radius: 10px;
-      resize: none;
-      margin-bottom: 15px;
-      box-sizing: border-box;
-    }
-    button {
-      padding: 10px 20px;
-      background: #d8b4e2;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-size: 1rem;
-      cursor: pointer;
-      margin-right: 10px;
-    }
-    button:hover {
-      background: #b28dd1;
-    }
-    .mensajes {
-      margin-top: 30px;
-      max-width: 500px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-    .mensaje-item {
-      background: #fff;
-      padding: 15px;
-      border-left: 5px solid #f7a9c4;
-      margin-bottom: 10px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      position: relative;
-    }
-    .mensaje-item button {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: #f78da7;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 5px 10px;
-      cursor: pointer;
-      font-size: 0.9rem;
-    }
-    @media screen and (max-width: 600px) {
-      form, .mensajes {
-        padding: 15px;
-      }
-      textarea {
-        height: 100px;
-      }
-      button {
-        width: 100%;
-        margin-bottom: 10px;
-      }
-    }
-  </style>
+  <title>Emergencia</title>
 </head>
 <body>
-  <h1>¿Me Extrañas?</h1>
+  <h2>Escribe tu mensaje de emergencia:</h2>
+  <textarea id="mensaje" rows="5" cols="40" required></textarea><br><br>
 
-  <form id="extraForm">
-    <label for="mensaje">Escríbeme si algún día me extrañas:</label><br>
-    <textarea id="mensaje" required placeholder="Querido Carlos..."></textarea><br>
-    <button type="submit">Enviar</button>
-    <button type="button" onclick="borrarTodosLosMensajes()" style="background:#f78da7;">Borrar todos los mensajes</button>
-  </form>
-
-  <div class="mensajes" id="mensajes"></div>
+  <button onclick="guardarMensaje()">Guardar mensaje</button>
+  <button onclick="borrarMensaje()">Borrar mensaje</button>
 
   <script>
-    const form = document.getElementById('extraForm');
-    const textarea = document.getElementById('mensaje');
-    const mensajesDiv = document.getElementById('mensajes');
-
-    // Cargar mensajes guardados
-    function cargarMensajes() {
-      const guardados = JSON.parse(localStorage.getItem('extraMensajes')) || [];
-      mensajesDiv.innerHTML = '';
-      guardados.forEach((msg, index) => {
-        const div = document.createElement('div');
-        div.className = 'mensaje-item';
-        div.innerHTML = `
-          <span>${msg}</span>
-          <button onclick="borrarMensaje(${index})">X</button>
-        `;
-        mensajesDiv.appendChild(div);
-      });
-    }
-
-    // Guardar nuevo mensaje
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const texto = textarea.value.trim();
-      if (texto) {
-        const guardados = JSON.parse(localStorage.getItem('extraMensajes')) || [];
-        guardados.push(texto);
-        localStorage.setItem('extraMensajes', JSON.stringify(guardados));
-        textarea.value = '';
-        cargarMensajes();
+    function guardarMensaje() {
+      const mensaje = document.getElementById("mensaje").value.trim();
+      if (mensaje === "") {
+        alert("Por favor escribe un mensaje antes de guardar.");
+        return;
       }
-    });
-
-    // Borrar todos los mensajes
-    function borrarTodosLosMensajes() {
-      localStorage.removeItem('extraMensajes');
-      cargarMensajes();
+      localStorage.setItem("mensajeEmergencia", mensaje);
+      alert("Mensaje guardado. Puedes verlo en index.html.");
     }
 
-    // Borrar mensaje individual
-    function borrarMensaje(index) {
-      const guardados = JSON.parse(localStorage.getItem('extraMensajes')) || [];
-      guardados.splice(index, 1);
-      localStorage.setItem('extraMensajes', JSON.stringify(guardados));
-      cargarMensajes();
+    function borrarMensaje() {
+      localStorage.removeItem("mensajeEmergencia");
+      alert("Mensaje de emergencia borrado.");
     }
-
-    cargarMensajes();
   </script>
 </body>
 </html>
