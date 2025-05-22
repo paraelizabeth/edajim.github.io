@@ -5,18 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>¿Me Extrañas?</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       font-family: Arial, sans-serif;
       background: linear-gradient(to right, #f8c8dc, #d8b4e2);
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 60px 20px;
+      padding: 40px 15px;
+      margin: 0;
       color: #5e3d7a;
     }
     h1 {
       margin-bottom: 20px;
       font-size: 2rem;
+      text-align: center;
     }
     form {
       background: white;
@@ -34,6 +39,7 @@
       border: 2px solid #d8b4e2;
       border-radius: 10px;
       resize: none;
+      margin-top: 10px;
       margin-bottom: 15px;
     }
     button {
@@ -44,6 +50,7 @@
       border-radius: 10px;
       font-size: 1rem;
       cursor: pointer;
+      width: 100%;
     }
     button:hover {
       background: #b28dd1;
@@ -61,13 +68,22 @@
       border-radius: 10px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
+
+    @media (max-width: 400px) {
+      body {
+        padding: 20px 10px;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
   </style>
 </head>
 <body>
   <h1>¿Me Extrañas?</h1>
   <form id="extraForm">
-    <label for="mensaje">Escríbeme si algún día me extrañas:</label><br>
-    <textarea id="mensaje" required placeholder="Querido Carlos..."></textarea><br>
+    <label for="mensaje">Escríbeme si algún día me extrañas:</label>
+    <textarea id="mensaje" required placeholder="Querido Carlos..."></textarea>
     <button type="submit">Enviar</button>
   </form>
 
@@ -78,7 +94,6 @@
     const textarea = document.getElementById('mensaje');
     const mensajesDiv = document.getElementById('mensajes');
 
-    // Cargar mensajes guardados
     function cargarMensajes() {
       const guardados = JSON.parse(localStorage.getItem('extraMensajes')) || [];
       mensajesDiv.innerHTML = '';
@@ -90,7 +105,6 @@
       });
     }
 
-    // Guardar nuevo mensaje
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const texto = textarea.value.trim();
