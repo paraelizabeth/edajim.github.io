@@ -22,15 +22,41 @@
       transition: padding-left 0.3s ease;
       min-height: 100vh;
       position: relative;
+      padding-top: 90px; /* Para que el contenido no quede debajo del mensaje */
     }
     body.sidebar-open {
       padding-left: 250px;
     }
 
+    /* Mensaje de emergencia fijo */
+    #emergency-message {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #ff4d4d;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      text-align: center;
+      padding: 15px 10px;
+      z-index: 2000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      user-select: none;
+      letter-spacing: 0.05em;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-transform: uppercase;
+      animation: pulse 2s infinite alternate;
+    }
+    @keyframes pulse {
+      0% { background-color: #ff4d4d; }
+      100% { background-color: #cc0000; }
+    }
+
     /* Icono menú hamburguesa */
     .menu-icon-container {
       position: fixed;
-      top: 10px;
+      top: 60px; /* Abajo del mensaje de emergencia */
       left: 10px;
       z-index: 1000;
     }
@@ -63,7 +89,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding-top: 60px;
+      padding-top: 120px; /* Para no tapar mensaje ni menú */
     }
     .navbar.open {
       left: 0;
@@ -93,7 +119,7 @@
       font-size: 2rem;
       font-weight: bold;
       position: fixed;
-      top: 0;
+      top: 50px; /* Abajo del mensaje de emergencia */
       left: 0;
       z-index: 500;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
@@ -103,7 +129,7 @@
     /* Icono carrito */
     .cart-icon {
       position: fixed;
-      top: 20px;
+      top: 70px;
       right: 20px;
       font-size: 28px;
       color: #825f9a;
@@ -124,7 +150,7 @@
     /* Popup carrito */
     .cart-popup {
       position: fixed;
-      top: 70px;
+      top: 110px;
       right: 20px;
       width: 90%;
       max-width: 320px;
@@ -258,181 +284,163 @@
       }
     }
 
-    /* Popup imagen grande */
-    .img-popup {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.8);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1200;
-      cursor: pointer;
-      user-select: none;
-    }
-    .img-popup img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 15px;
-      box-shadow: 0 0 20px #fff;
-    }
-
-    /* Responsivo */
+    /* Responsividad */
     @media (max-width: 600px) {
       header {
         font-size: 1.5rem;
-        padding: 15px;
-      }
-      .menu-icon {
-        font-size: 24px;
-        padding: 8px;
-      }
-      .cart-icon {
-        font-size: 24px;
-        padding: 8px;
-      }
-      .content h1 {
-        font-size: 1.5rem;
-      }
-      .content p {
-        font-size: 1rem;
-      }
-      button {
-        padding: 10px 20px;
+        padding: 15px 0;
+        top: 50px;
       }
       .carousel {
-        height: 280px;
-        aspect-ratio: 4 / 3;
-        margin-top: 90px;
+        height: 300px;
+      }
+      .cart-popup {
+        top: 90px;
+        width: 95%;
+      }
+      body.sidebar-open {
+        padding-left: 0;
+      }
+      .navbar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        left: 0 !important;
+        flex-direction: row;
+        padding: 0;
+        justify-content: space-around;
+      }
+      .navbar a {
+        width: auto;
+        padding: 10px;
       }
     }
   </style>
 </head>
 <body>
-  <header>
-    Tú y Yo ❤️ Un lugar para nuestros momentos
-  </header>
 
-  <div class="menu-icon-container">
-    <div class="menu-icon" aria-label="Abrir menú" role="button" tabindex="0" onclick="toggleNavbar()" onkeydown="if(event.key==='Enter') toggleNavbar()">
-      <i class="fas fa-bars"></i>
-    </div>
+  <!-- Mensaje de emergencia fijo -->
+  <div id="emergency-message" aria-live="assertive" role="alert" tabindex="0">
+    ¡EMERGENCIA! Comuníquese con Elizabeth: <a href="tel:+1234567890" style="color: #fff; text-decoration: underline;">+1 234 567 890</a>
   </div>
 
-  <nav class="navbar" id="sidebar" aria-label="Navegación principal">
-    <a href="index.html">Inicio</a>
-    <a href="ludoteca.html">Ludoteca</a>
-    <a href="multimedia.html">Multimedia</a>
-    <a href="#contactos">Contactos</a>
+  <!-- Icono menú hamburguesa -->
+  <div class="menu-icon-container">
+    <i class="fas fa-bars menu-icon" aria-label="Abrir menú" role="button" tabindex="0"></i>
+  </div>
+
+  <!-- Navbar lateral -->
+  <nav class="navbar" aria-label="Navegación principal">
+    <a href="#home" tabindex="0">Inicio</a>
+    <a href="#gallery" tabindex="0">Galería</a>
+    <a href="#about" tabindex="0">Acerca</a>
+    <a href="#contact" tabindex="0">Contacto</a>
   </nav>
 
-  <div class="cart-icon" aria-label="Abrir carrito de compras" role="button" tabindex="0" onclick="toggleCart()" onkeydown="if(event.key==='Enter') toggleCart()">
+  <!-- Header fijo -->
+  <header>
+    Elizabeth & Carlos
+  </header>
+
+  <!-- Icono carrito -->
+  <div class="cart-icon" aria-label="Abrir carrito" role="button" tabindex="0">
     <i class="fas fa-shopping-cart"></i>
   </div>
 
-  <section class="cart-popup" id="cart-popup" aria-live="polite" aria-atomic="true" role="region">
+  <!-- Popup carrito -->
+  <div class="cart-popup" role="region" aria-live="polite" aria-label="Contenido del carrito">
     <h2>Carrito de compras</h2>
-    <div class="cart-item">
-      <span>Producto 1</span>
-      <span>$120</span>
-    </div>
-    <div class="cart-item">
-      <span>Producto 2</span>
-      <span>$80</span>
-    </div>
-    <div class="cart-item">
-      <span>Producto 3</span>
-      <span>$50</span>
-    </div>
-    <div class="cart-total">
-      Total: $250
-    </div>
-  </section>
+    <div class="cart-item">Artículo 1 <span>$10</span></div>
+    <div class="cart-item">Artículo 2 <span>$15</span></div>
+    <div class="cart-total">Total: $25</div>
+  </div>
 
-  <section class="carousel" aria-label="Galería de imágenes">
-    <div class="slides" id="slides">
-      <div class="slide"><img src="tuyyo1.jpg" alt="Imagen 1 - Tú y Yo" tabindex="0" /></div>
-      <div class="slide"><img src="tuyyo2.jpg" alt="Imagen 2 - Momentos juntos" tabindex="0" /></div>
-      <div class="slide"><img src="tuyyo3.jpg" alt="Imagen 3 - Recuerdos felices" tabindex="0" /></div>
-      <div class="slide"><img src="tuyyo4.jpg" alt="Imagen 4 - Amor y alegría" tabindex="0" /></div>
+  <!-- Carrusel -->
+  <section class="carousel" aria-label="Carrusel de imágenes">
+    <div class="slides">
+      <div class="slide">
+        <img src="img1.jpg" alt="Foto de Elizabeth y Carlos 1" />
+      </div>
+      <div class="slide">
+        <img src="img2.jpg" alt="Foto de Elizabeth y Carlos 2" />
+      </div>
+      <div class="slide">
+        <img src="img3.jpg" alt="Foto de Elizabeth y Carlos 3" />
+      </div>
+      <div class="slide">
+        <img src="img4.jpg" alt="Foto de Elizabeth y Carlos 4" />
+      </div>
     </div>
   </section>
 
   <main class="content">
-    <h1>Bienvenidos a nuestro espacio especial</h1>
-    <p>Este sitio es un rincón dedicado a nuestros momentos juntos, lleno de amor, recuerdos y sueños compartidos.</p>
-    <button onclick="alert('Gracias por visitarnos ❤️')">Dale click aquí</button>
+    <h1>Bienvenidos a nuestro sitio</h1>
+    <p>Un espacio especial dedicado a Elizabeth y Carlos, con recuerdos, amor y momentos inolvidables.</p>
+    <button>Explorar más</button>
   </main>
 
-  <div class="img-popup" id="img-popup" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1" onclick="closePopup()">
-    <img src="" alt="Imagen ampliada" id="popup-img" />
-  </div>
-
   <script>
-    // Toggle sidebar menu
-    function toggleNavbar() {
-      const sidebar = document.getElementById('sidebar');
-      sidebar.classList.toggle('open');
-      document.body.classList.toggle('sidebar-open');
-    }
+    // Toggle menú lateral
+    const menuIcon = document.querySelector(".menu-icon");
+    const navbar = document.querySelector(".navbar");
+    const body = document.body;
 
-    // Toggle cart popup
-    function toggleCart() {
-      const cart = document.getElementById('cart-popup');
-      cart.style.display = cart.style.display === 'block' ? 'none' : 'block';
-    }
-
-    // Carrusel automático con bucle infinito lento
-    const slides = document.getElementById('slides');
-    const totalSlides = slides.children.length;
-    let currentIndex = 0;
-
-    function showNextSlide() {
-      currentIndex = (currentIndex + 1) % totalSlides;
-      slides.style.transform = `translateX(-${currentIndex * 100}%)`;
-    }
-
-    setInterval(showNextSlide, 7000); // Cambia cada 7 segundos
-
-    // Popup imagen ampliada al hacer click en la imagen del carrusel
-    const popup = document.getElementById('img-popup');
-    const popupImg = document.getElementById('popup-img');
-    const slideImages = document.querySelectorAll('.slide img');
-
-    slideImages.forEach(img => {
-      img.addEventListener('click', () => {
-        popupImg.src = img.src;
-        popupImg.alt = img.alt;
-        popup.style.display = 'flex';
-        popup.setAttribute('aria-hidden', 'false');
-        popup.focus();
-      });
+    menuIcon.addEventListener("click", () => {
+      navbar.classList.toggle("open");
+      body.classList.toggle("sidebar-open");
+    });
+    menuIcon.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        menuIcon.click();
+      }
     });
 
-    function closePopup() {
-      popup.style.display = 'none';
-      popup.setAttribute('aria-hidden', 'true');
-    }
+    // Toggle carrito popup
+    const cartIcon = document.querySelector(".cart-icon");
+    const cartPopup = document.querySelector(".cart-popup");
 
-    // Animar corazones caídos
+    cartIcon.addEventListener("click", () => {
+      if (cartPopup.style.display === "block") {
+        cartPopup.style.display = "none";
+      } else {
+        cartPopup.style.display = "block";
+      }
+    });
+    cartIcon.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        cartIcon.click();
+      }
+    });
+
+    // Carrusel automático lento
+    const slides = document.querySelector(".slides");
+    const totalSlides = slides.children.length;
+    let index = 0;
+
+    function showNextSlide() {
+      index++;
+      if (index >= totalSlides) {
+        index = 0;
+      }
+      slides.style.transform = `translateX(-${index * 100}%)`;
+    }
+    // Cambia cada 8 segundos para dar tiempo a ver la imagen
+    setInterval(showNextSlide, 8000);
+
+    // Animar corazones
     function createHeart() {
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.fontSize = (10 + Math.random() * 20) + 'px';
-      heart.style.animationDuration = (5 + Math.random() * 5) + 's';
-      heart.textContent = '❤️';
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+      heart.style.fontSize = (12 + Math.random() * 18) + "px";
+      heart.textContent = "❤️";
       document.body.appendChild(heart);
-
-      setTimeout(() => {
-        heart.remove();
-      }, 10000); // Eliminar después de 10 segundos
+      setTimeout(() => heart.remove(), 6000);
     }
-
-    setInterval(createHeart, 300);
+    setInterval(createHeart, 500);
 
   </script>
 </body>
