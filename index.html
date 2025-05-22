@@ -2,15 +2,15 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tú y Yo</title>
   <meta name="description" content="Un sitio conmemorativo para Elizabeth y Carlos." />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
-    /* Reset y base */
     * {
       box-sizing: border-box;
     }
+
     body {
       margin: 0;
       font-family: "Arial", sans-serif;
@@ -20,46 +20,19 @@
       flex-direction: column;
       align-items: center;
       transition: padding-left 0.3s ease;
-      min-height: 100vh;
-      position: relative;
-      padding-top: 90px; /* Para que el contenido no quede debajo del mensaje */
     }
+
     body.sidebar-open {
       padding-left: 250px;
     }
 
-    /* Mensaje de emergencia fijo */
-    #emergency-message {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: #ff4d4d;
-      color: white;
-      font-weight: bold;
-      font-size: 1.2rem;
-      text-align: center;
-      padding: 15px 10px;
-      z-index: 2000;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      user-select: none;
-      letter-spacing: 0.05em;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      text-transform: uppercase;
-      animation: pulse 2s infinite alternate;
-    }
-    @keyframes pulse {
-      0% { background-color: #ff4d4d; }
-      100% { background-color: #cc0000; }
-    }
-
-    /* Icono menú hamburguesa */
     .menu-icon-container {
       position: fixed;
-      top: 60px; /* Abajo del mensaje de emergencia */
+      top: 10px;
       left: 10px;
-      z-index: 1000;
+      z-index: 6;
     }
+
     .menu-icon {
       font-size: 30px;
       color: white;
@@ -67,15 +40,8 @@
       padding: 10px;
       cursor: pointer;
       border-radius: 5px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-      user-select: none;
-      transition: background-color 0.3s ease;
-    }
-    .menu-icon:hover {
-      background-color: #f47cae;
     }
 
-    /* Sidebar navbar */
     .navbar {
       height: 100vh;
       width: 250px;
@@ -83,17 +49,18 @@
       position: fixed;
       left: -250px;
       top: 0;
-      transition: left 0.3s ease;
-      z-index: 999;
+      transition: 0.3s;
+      z-index: 2;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding-top: 120px; /* Para no tapar mensaje ni menú */
     }
+
     .navbar.open {
       left: 0;
     }
+
     .navbar a {
       display: block;
       color: white;
@@ -102,14 +69,12 @@
       font-size: 18px;
       width: 100%;
       text-align: center;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
     }
+
     .navbar a:hover {
       background-color: #b282cc;
     }
 
-    /* Header fijo */
     header {
       width: 100%;
       background: linear-gradient(90deg, #f8c8dc, #d8b4e2);
@@ -119,17 +84,15 @@
       font-size: 2rem;
       font-weight: bold;
       position: fixed;
-      top: 50px; /* Abajo del mensaje de emergencia */
+      top: 0;
       left: 0;
-      z-index: 500;
+      z-index: 5;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      user-select: none;
     }
 
-    /* Icono carrito */
     .cart-icon {
       position: fixed;
-      top: 70px;
+      top: 20px;
       right: 20px;
       font-size: 28px;
       color: #825f9a;
@@ -137,20 +100,19 @@
       padding: 10px;
       border-radius: 50%;
       cursor: pointer;
-      z-index: 1001;
+      z-index: 10;
       box-shadow: 0 2px 6px rgba(130,95,154,0.4);
-      transition: background-color 0.3s ease, color 0.3s ease;
-      user-select: none;
+      transition: background-color 0.3s;
     }
+
     .cart-icon:hover {
       background-color: #d8b4e2;
       color: #fff;
     }
 
-    /* Popup carrito */
     .cart-popup {
       position: fixed;
-      top: 110px;
+      top: 70px;
       right: 20px;
       width: 90%;
       max-width: 320px;
@@ -159,10 +121,11 @@
       box-shadow: 0 4px 15px rgba(130, 95, 154, 0.3);
       padding: 20px;
       display: none;
-      z-index: 1100;
+      z-index: 11;
       font-family: Arial, sans-serif;
       color: #5e3d7a;
     }
+
     .cart-popup h2 {
       margin-top: 0;
       margin-bottom: 15px;
@@ -170,109 +133,89 @@
       color: #825f9a;
       border-bottom: 1px solid #d8b4e2;
       padding-bottom: 8px;
-      user-select: none;
     }
+
     .cart-item {
       display: flex;
       justify-content: space-between;
       margin-bottom: 12px;
       font-size: 1rem;
-      user-select: none;
     }
+
     .cart-total {
       border-top: 1px solid #d8b4e2;
       padding-top: 12px;
       font-weight: bold;
       font-size: 1.2rem;
       text-align: right;
-      user-select: none;
     }
 
-    /* Carrusel */
     .carousel {
       margin-top: 120px;
       width: 100%;
       max-width: 800px;
-      height: 450px;
+      height: auto;
       position: relative;
       overflow: hidden;
       border-radius: 15px;
-      background: transparent;
       display: flex;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 8px 20px rgba(130, 95, 154, 0.15);
+      background: transparent; /* Fondo transparente para eliminar recuadro blanco */
     }
+
     .slides {
       display: flex;
       transition: transform 1s ease-in-out;
       width: 400%;
       height: 100%;
     }
+
     .slide {
       flex: 0 0 100%;
       display: flex;
       justify-content: center;
       align-items: center;
     }
+
     .slide img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: contain; /* Para que no recorte y se vea completo */
       border-radius: 15px;
       cursor: pointer;
       background: transparent;
-      user-select: none;
-      transition: transform 0.3s ease;
-    }
-    .slide img:hover {
-      transform: scale(1.05);
     }
 
-    /* Contenido central */
     .content {
       max-width: 800px;
       padding: 20px;
       text-align: center;
       color: #825f9a;
     }
-    .content h1 {
-      font-size: 2rem;
-      margin-bottom: 12px;
-      user-select: none;
-    }
-    .content p {
-      font-size: 1.1rem;
-      margin-bottom: 20px;
-      user-select: none;
-    }
+
     button {
       background-color: #d8b4e2;
       color: white;
       border: none;
-      padding: 12px 28px;
+      padding: 10px 20px;
       border-radius: 10px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
-      font-weight: 600;
-      font-size: 1rem;
-      user-select: none;
+      transition: background-color 0.3s;
     }
+
     button:hover {
       background-color: #b28dd1;
     }
 
-    /* Corazones animados */
     .heart {
       position: fixed;
       top: -10px;
       color: #f8c8dc;
       font-size: 20px;
       animation: fall linear infinite;
-      pointer-events: none;
-      user-select: none;
-      text-shadow: 0 0 6px #fff;
     }
+
     @keyframes fall {
       0% {
         transform: translateY(0);
@@ -284,165 +227,183 @@
       }
     }
 
-    /* Responsividad */
+    /* Popup imagen grande */
+    .img-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 20;
+      cursor: pointer;
+    }
+
+    .img-popup img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #fff;
+    }
+
     @media (max-width: 600px) {
       header {
         font-size: 1.5rem;
-        padding: 15px 0;
-        top: 50px;
+        padding: 15px;
       }
+
+      .menu-icon {
+        font-size: 24px;
+        padding: 8px;
+      }
+
+      .cart-icon {
+        font-size: 24px;
+        padding: 8px;
+      }
+
+      .content h1 {
+        font-size: 1.5rem;
+      }
+
+      .content p {
+        font-size: 1rem;
+      }
+
+      button {
+        padding: 8px 16px;
+      }
+
       .carousel {
-        height: 300px;
-      }
-      .cart-popup {
-        top: 90px;
-        width: 95%;
-      }
-      body.sidebar-open {
-        padding-left: 0;
-      }
-      .navbar {
-        width: 100%;
-        height: auto;
-        position: relative;
-        left: 0 !important;
-        flex-direction: row;
-        padding: 0;
-        justify-content: space-around;
-      }
-      .navbar a {
-        width: auto;
-        padding: 10px;
+        aspect-ratio: 4 / 3;
       }
     }
   </style>
 </head>
 <body>
-
-  <!-- Mensaje de emergencia fijo -->
-  <div id="emergency-message" aria-live="assertive" role="alert" tabindex="0">
-    ¡EMERGENCIA! Comuníquese con Elizabeth: <a href="tel:+1234567890" style="color: #fff; text-decoration: underline;">+1 234 567 890</a>
-  </div>
-
-  <!-- Icono menú hamburguesa -->
-  <div class="menu-icon-container">
-    <i class="fas fa-bars menu-icon" aria-label="Abrir menú" role="button" tabindex="0"></i>
-  </div>
-
-  <!-- Navbar lateral -->
-  <nav class="navbar" aria-label="Navegación principal">
-    <a href="index.html" tabindex="0">Inicio</a>
-    <a href="ludoteca.html" tabindex="0">Galería</a>
-    <a href="multimedia.html" tabindex="0">Canciones</a>
-    <a href="contacto.html" tabindex="0">Contacto</a>
-        <a href="emergencia.html" tabindex="0">USAR EN CASO DE EMERGENCIA</a>
-  </nav>
-
-  <!-- Header fijo -->
   <header>
-    Elizabeth & Carlos
+    Tú y Yo ❤️ Un lugar para nuestros momentos
   </header>
 
-  <!-- Icono carrito -->
-  <div class="cart-icon" aria-label="Abrir carrito" role="button" tabindex="0">
+  <div class="menu-icon-container">
+    <div class="menu-icon" onclick="toggleNavbar()">
+      <i class="fas fa-bars"></i>
+    </div>
+  </div>
+
+  <div class="navbar" id="sidebar">
+    <a href="index.html">Inicio</a>
+    <a href="ludoteca.html">Ludoteca</a>
+    <a href="multimedia.html">Multimedia</a>
+    <a href="#contactos">Contactos</a>
+  </div>
+
+  <div class="cart-icon" onclick="toggleCart()">
     <i class="fas fa-shopping-cart"></i>
   </div>
 
-  <!-- Popup carrito -->
-  <div class="cart-popup" role="region" aria-live="polite" aria-label="Contenido del carrito">
+  <div class="cart-popup" id="cart-popup">
     <h2>Carrito de compras</h2>
-    <div class="cart-item">Artículo 1 <span>$10</span></div>
-    <div class="cart-item">Artículo 2 <span>$15</span></div>
-    <div class="cart-total">Total: $25</div>
+    <div class="cart-item">
+      <span>Producto 1</span>
+      <span>$120</span>
+    </div>
+    <div class="cart-item">
+      <span>Producto 2</span>
+      <span>$80</span>
+    </div>
+    <div class="cart-item">
+      <span>Producto 3</span>
+      <span>$50</span>
+    </div>
+    <div class="cart-total">Total: $250</div>
   </div>
 
-  <!-- Carrusel -->
-  <section class="carousel" aria-label="Carrusel de imágenes">
-    <div class="slides">
-      <div class="slide">
-        <img src="img1.jpg" alt="Foto de Elizabeth y Carlos 1" />
-      </div>
-      <div class="slide">
-        <img src="img2.jpg" alt="Foto de Elizabeth y Carlos 2" />
-      </div>
-      <div class="slide">
-        <img src="img3.jpg" alt="Foto de Elizabeth y Carlos 3" />
-      </div>
-      <div class="slide">
-        <img src="img4.jpg" alt="Foto de Elizabeth y Carlos 4" />
-      </div>
+  <div class="carousel">
+    <div class="slides" id="slide-track">
+      <div class="slide"><img src="foto1.jpg" alt="Momento 1" onclick="showImgPopup(this)" /></div>
+      <div class="slide"><img src="foto2.jpg" alt="Momento 2" onclick="showImgPopup(this)" /></div>
+      <div class="slide"><img src="foto3.jpg" alt="Momento 3" onclick="showImgPopup(this)" /></div>
+      <div class="slide"><img src="foto4.jpg" alt="Momento 4" onclick="showImgPopup(this)" /></div>
     </div>
-  </section>
+  </div>
 
-  <main class="content">
-    <h1>Bienvenidos a nuestro sitio</h1>
-    <p>Un espacio especial dedicado a Elizabeth y Carlos, con recuerdos, amor y momentos inolvidables.</p>
-    <button>Explorar más</button>
-  </main>
+  <div class="content">
+    <h1>Bienvenidos a "Tú y Yo"</h1>
+    <p>
+      Un lugar especial para Elizabeth y Carlos, donde recordamos nuestros momentos más bellos.
+    </p>
+    <button onclick="alert('¡Te amo!')">Dime algo bonito</button>
+  </div>
+
+  <!-- Popup imagen grande -->
+  <div class="img-popup" id="img-popup" onclick="closeImgPopup()">
+    <img src="" alt="Imagen ampliada" id="img-popup-img" />
+  </div>
 
   <script>
-    // Toggle menú lateral
-    const menuIcon = document.querySelector(".menu-icon");
-    const navbar = document.querySelector(".navbar");
-    const body = document.body;
+    const sidebar = document.getElementById('sidebar');
+    const cartPopup = document.getElementById('cart-popup');
+    const imgPopup = document.getElementById('img-popup');
+    const imgPopupImg = document.getElementById('img-popup-img');
 
-    menuIcon.addEventListener("click", () => {
-      navbar.classList.toggle("open");
-      body.classList.toggle("sidebar-open");
-    });
-    menuIcon.addEventListener("keydown", e => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        menuIcon.click();
-      }
-    });
+    function toggleNavbar() {
+      sidebar.classList.toggle('open');
+      document.body.classList.toggle('sidebar-open');
+    }
 
-    // Toggle carrito popup
-    const cartIcon = document.querySelector(".cart-icon");
-    const cartPopup = document.querySelector(".cart-popup");
-
-    cartIcon.addEventListener("click", () => {
-      if (cartPopup.style.display === "block") {
-        cartPopup.style.display = "none";
+    function toggleCart() {
+      if (cartPopup.style.display === 'block') {
+        cartPopup.style.display = 'none';
       } else {
-        cartPopup.style.display = "block";
+        cartPopup.style.display = 'block';
       }
-    });
-    cartIcon.addEventListener("keydown", e => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        cartIcon.click();
-      }
-    });
+    }
 
-    // Carrusel automático lento
-    const slides = document.querySelector(".slides");
+    // Carrusel automático
+    let currentIndex = 0;
+    const slides = document.getElementById('slide-track');
     const totalSlides = slides.children.length;
-    let index = 0;
 
     function showNextSlide() {
-      index++;
-      if (index >= totalSlides) {
-        index = 0;
-      }
-      slides.style.transform = `translateX(-${index * 100}%)`;
+      currentIndex = (currentIndex + 1) % totalSlides;
+      slides.style.transform = `translateX(-${currentIndex * 100}%)`;
     }
-    // Cambia cada 8 segundos para dar tiempo a ver la imagen
-    setInterval(showNextSlide, 8000);
 
-    // Animar corazones
+    setInterval(showNextSlide, 7000); // Cambia cada 7 segundos
+
+    // Popup imagen grande
+    function showImgPopup(img) {
+      imgPopup.style.display = 'flex';
+      imgPopupImg.src = img.src;
+      imgPopupImg.alt = img.alt;
+    }
+
+    function closeImgPopup() {
+      imgPopup.style.display = 'none';
+      imgPopupImg.src = '';
+      imgPopupImg.alt = '';
+    }
+
+    // Animación de corazones
     function createHeart() {
-      const heart = document.createElement("div");
-      heart.classList.add("heart");
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
-      heart.style.fontSize = (12 + Math.random() * 18) + "px";
-      heart.textContent = "❤️";
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      heart.style.animationDuration = (2 + Math.random() * 3) + 's';
+      heart.style.fontSize = (10 + Math.random() * 20) + 'px';
+      heart.textContent = '❤';
       document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 6000);
-    }
-    setInterval(createHeart, 500);
 
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+
+    setInterval(createHeart, 400);
   </script>
 </body>
 </html>
