@@ -80,7 +80,7 @@
       height: 70px;
       background: linear-gradient(90deg, #f8c8dc, #d8b4e2);
       color: #825f9a;
-      font-size: clamp(1rem, 5vw, 2rem); /* RESPONSIVO */
+      font-size: clamp(16px, 3vw, 22px); /* Ajustado para todos los dispositivos */
       font-weight: bold;
       display: flex;
       align-items: center;
@@ -135,7 +135,8 @@
       object-fit: contain;
       margin-bottom: 10px;
       box-shadow: 0 2px 6px rgba(122, 92, 158, 0.4);
-      pointer-events: none;
+      pointer-events: auto;
+      cursor: pointer;
     }
 
     .ludoteca-item p {
@@ -187,22 +188,7 @@
       z-index: 1200;
     }
 
-    .heart {
-      position: fixed;
-      top: -10px;
-      color: #f8c8dc;
-      font-size: 20px;
-      animation: fall linear infinite;
-      pointer-events: none;
-      z-index: 10;
-    }
-
-    @keyframes fall {
-      0% { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(100vh); opacity: 0; }
-    }
-
-    /* Media Queries para Responsividad */
+    /* Responsive */
     @media (max-width: 768px) {
       main.ludoteca-container {
         grid-template-columns: repeat(2, 1fr);
@@ -215,12 +201,8 @@
         padding: 10px;
       }
 
-      .ludoteca-item {
-        padding: 10px;
-      }
-
       header {
-        font-size: clamp(1rem, 6vw, 1.5rem); /* Aún más adaptable en pantallas muy pequeñas */
+        font-size: clamp(14px, 4vw, 18px);
         height: 60px;
       }
 
@@ -258,9 +240,8 @@
 
   <div class="page-wrapper">
     <main class="ludoteca-container">
-      <!-- Tus items aquí -->
       <div class="ludoteca-item">
-        <img src="img1.jpg" alt="Juego 1" />
+        <img src="img1.jpg" alt="Recuerdo 1" />
         <p>El primer collar que te obsequié</p>
         <p class="descripcion">Un recuerdo con mucho amor...</p>
       </div>
@@ -348,7 +329,7 @@ Así, nunca estarás sola, porque en cada momento, mi cariño está contigo.</p>
 <p>Nuestro juego favorito</p>
 <p class="descripcion">Nunca dejamos de jugar.</p>
 </div>
-      <!-- Continúa con más items si deseas -->
+      <!-- Puedes agregar más bloques similares aquí -->
     </main>
   </div>
 
@@ -365,9 +346,10 @@ Así, nunca estarás sola, porque en cada momento, mi cariño está contigo.</p>
       body.classList.toggle("sidebar-open");
     }
 
-    // Código para mostrar pop-up de imágenes
+    // Mostrar imagen en popup
     document.querySelectorAll('.ludoteca-item img').forEach(img => {
-      img.addEventListener('click', function () {
+      img.addEventListener('click', function (e) {
+        e.stopPropagation();
         const popup = document.getElementById('popup-overlay');
         const popupImage = document.getElementById('popup-image');
         popupImage.src = this.src;
