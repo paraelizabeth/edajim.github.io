@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿Me Extrañas?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #f8c8dc, #d8b4e2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px;
+      color: #5e3d7a;
+    }
+    h1 {
+      margin-bottom: 20px;
+      font-size: 2rem;
+    }
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(130, 95, 154, 0.2);
+      max-width: 500px;
+      width: 100%;
+    }
+    textarea {
+      width: 100%;
+      height: 120px;
+      padding: 10px;
+      font-size: 1rem;
+      border: 2px solid #d8b4e2;
+      border-radius: 10px;
+      resize: none;
+      margin-bottom: 15px;
+    }
+    button {
+      padding: 10px 20px;
+      background: #d8b4e2;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #b28dd1;
+    }
+    .mensajes {
+      margin-top: 30px;
+      max-width: 500px;
+      width: 100%;
+    }
+    .mensaje-item {
+      background: #fff;
+      padding: 15px;
+      border-left: 5px solid #f7a9c4;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>¿Me Extrañas?</h1>
+  <form id="extraForm">
+    <label for="mensaje">Escríbeme si algún día me extrañas:</label><br>
+    <textarea id="mensaje" required placeholder="Querido Carlos..."></textarea><br>
+    <button type="submit">Enviar</button>
+  </form>
+
+  <div class="mensajes" id="mensajes"></div>
+
+  <script>
+    const form = document.getElementById('extraForm');
+    const textarea = document.getElementById('mensaje');
+    const mensajesDiv = document.getElementById('mensajes');
+
+    // Cargar mensajes guardados
+    function cargarMensajes() {
+      const guardados = JSON.parse(localStorage.getItem('extraMensajes')) || [];
+      mensajesDiv.innerHTML = '';
+      guardados.forEach(msg => {
+        const div = document.createElement('div');
+        div.className = 'mensaje-item';
+        div.textContent = msg;
+        mensajesDiv.appendChild(div);
+      });
+    }
+
+    // Guardar nuevo mensaje
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const texto = textarea.value.trim();
+      if (texto) {
+        const guardados = JSON.parse(localStorage.getItem('extraMensajes')) || [];
+        guardados.push(texto);
+        localStorage.setItem('extraMensajes', JSON.stringify(guardados));
+        textarea.value = '';
+        cargarMensajes();
+      }
+    });
+
+    cargarMensajes();
+  </script>
+</body>
+</html>
