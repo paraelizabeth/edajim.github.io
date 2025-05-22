@@ -7,7 +7,173 @@
   <meta name="description" content="Un sitio conmemorativo para Elizabeth y Carlos." />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
-    /* ... todo el CSS ya lo tienes en tu pregunta, no es necesario repetirlo aquí ... */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background: #fff0f5;
+      color: #333;
+    }
+    header {
+      background: #ff5c8d;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .menu-icon-container {
+      position: fixed;
+      top: 10px; left: 10px;
+      z-index: 1000;
+    }
+    .menu-icon {
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #ff5c8d;
+    }
+    .navbar {
+      background: #ffe3ec;
+      position: fixed;
+      top: 0; left: -250px;
+      width: 250px;
+      height: 100vh;
+      overflow-y: auto;
+      transition: left 0.3s ease;
+      padding-top: 60px;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    }
+    .navbar.open {
+      left: 0;
+    }
+    .navbar a {
+      display: block;
+      padding: 1rem 1.5rem;
+      text-decoration: none;
+      color: #ff5c8d;
+      font-weight: 600;
+      border-bottom: 1px solid #ffc8d4;
+      transition: background 0.3s ease;
+    }
+    .navbar a:hover {
+      background: #ffadc6;
+      color: white;
+    }
+    .cart-icon {
+      position: fixed;
+      top: 10px; right: 10px;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #ff5c8d;
+      z-index: 1000;
+    }
+    .cart-popup {
+      position: fixed;
+      top: 60px; right: 10px;
+      background: white;
+      border: 2px solid #ff5c8d;
+      border-radius: 8px;
+      width: 280px;
+      max-height: 400px;
+      overflow-y: auto;
+      padding: 1rem;
+      box-shadow: 0 4px 12px rgba(255, 92, 141, 0.3);
+      display: none;
+      z-index: 1000;
+    }
+    .cart-popup h2 {
+      margin-top: 0;
+      color: #ff5c8d;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.3rem 0;
+      border-bottom: 1px solid #ffe3ec;
+    }
+    .cart-total {
+      font-weight: bold;
+      padding-top: 0.5rem;
+      border-top: 2px solid #ff5c8d;
+      margin-top: 0.5rem;
+      color: #c9003f;
+    }
+    .carousel {
+      margin: 80px auto 2rem;
+      max-width: 90%;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(255, 92, 141, 0.3);
+    }
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    .slide img {
+      width: 100%;
+      border-radius: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .content {
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      padding: 0 1rem;
+      text-align: center;
+    }
+    .content h1 {
+      color: #ff5c8d;
+    }
+    .content button {
+      background: #ff5c8d;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.4rem;
+      font-size: 1rem;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-top: 1rem;
+    }
+    .content button:hover {
+      background: #c9003f;
+    }
+    .img-popup {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1500;
+      cursor: pointer;
+    }
+    .img-popup img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 0 20px white;
+    }
+    /* Corazones animados */
+    .heart {
+      position: fixed;
+      color: #ff5c8d;
+      user-select: none;
+      animation-name: floatUp;
+      animation-timing-function: ease-in-out;
+      animation-fill-mode: forwards;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    @keyframes floatUp {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-150px) scale(1.5);
+      }
+    }
   </style>
 </head>
 <body>
@@ -16,7 +182,8 @@
   </header>
 
   <div class="menu-icon-container">
-    <div class="menu-icon" aria-label="Abrir menú" role="button" tabindex="0" onclick="toggleNavbar()" onkeydown="if(event.key==='Enter') toggleNavbar()">
+    <div class="menu-icon" aria-label="Abrir menú" role="button" tabindex="0"
+      onclick="toggleNavbar()" onkeydown="if(event.key==='Enter') toggleNavbar()">
       <i class="fas fa-bars"></i>
     </div>
   </div>
@@ -29,12 +196,18 @@
     <a href="emergencia.html">DA CLIC SI ALGUN DIA ME EXTRAÑAS</a>
   </nav>
 
-  <div class="cart-icon" aria-label="Abrir carrito de compras" role="button" tabindex="0" onclick="toggleCart()" onkeydown="if(event.key==='Enter') toggleCart()">
+  <div class="cart-icon" aria-label="Abrir carrito de compras" role="button" tabindex="0"
+    onclick="toggleCart()" onkeydown="if(event.key==='Enter') toggleCart()">
     <i class="fas fa-shopping-cart"></i>
   </div>
 
   <section class="cart-popup" id="cart-popup" aria-live="polite" aria-atomic="true" role="region">
     <h2>Carrito de compras</h2>
+
+    <div id="emergency-message" class="cart-item" style="white-space: normal; font-weight: bold; color: #c9003f;">
+      <!-- Aquí aparecerá el mensaje de emergencia -->
+    </div>
+
     <div class="cart-item">
       <span>Producto 1</span>
       <span>$120</span>
@@ -64,7 +237,7 @@
   </section>
 
   <div class="img-popup" id="img-popup" onclick="closeImagePopup()">
-    <img src="" alt="Imagen ampliada">
+    <img src="" alt="Imagen ampliada" />
   </div>
 
   <script>
@@ -108,6 +281,19 @@
       document.body.appendChild(heart);
       setTimeout(() => heart.remove(), 5000);
     }, 300);
+
+    // Mostrar mensaje de emergencia desde localStorage
+    function loadEmergencyMessage() {
+      const msgContainer = document.getElementById('emergency-message');
+      const msg = localStorage.getItem('emergencyMessage');
+      if (msg && msg.trim() !== '') {
+        msgContainer.textContent = `Mensaje de emergencia: ${msg}`;
+      } else {
+        msgContainer.textContent = 'No hay mensajes de emergencia guardados.';
+      }
+    }
+
+    window.onload = loadEmergencyMessage;
   </script>
 </body>
 </html>
