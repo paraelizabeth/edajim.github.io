@@ -7,171 +7,306 @@
   <meta name="description" content="Un sitio conmemorativo para Elizabeth y Carlos." />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
+    /* Reset y base */
+    * {
+      box-sizing: border-box;
+    }
     body {
-      font-family: Arial, sans-serif;
-      margin: 0; padding: 0;
-      background: #fff0f5;
-      color: #333;
+      margin: 0;
+      font-family: "Arial", sans-serif;
+      background: linear-gradient(to bottom right, #f8c8dc, #d8b4e2);
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: padding-left 0.3s ease;
+      min-height: 100vh;
+      position: relative;
     }
-    header {
-      background: #ff5c8d;
-      color: white;
-      padding: 1rem;
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: bold;
+    body.sidebar-open {
+      padding-left: 250px;
     }
+
+    /* Icono menú hamburguesa */
     .menu-icon-container {
       position: fixed;
-      top: 10px; left: 10px;
+      top: 10px;
+      left: 10px;
       z-index: 1000;
     }
     .menu-icon {
-      font-size: 1.8rem;
+      font-size: 30px;
+      color: white;
+      background-color: #f7a9c4;
+      padding: 10px;
       cursor: pointer;
-      color: #ff5c8d;
+      border-radius: 5px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      user-select: none;
+      transition: background-color 0.3s ease;
     }
+    .menu-icon:hover {
+      background-color: #f47cae;
+    }
+
+    /* Sidebar navbar */
     .navbar {
-      background: #ffe3ec;
-      position: fixed;
-      top: 0; left: -250px;
-      width: 250px;
       height: 100vh;
-      overflow-y: auto;
+      width: 250px;
+      background-color: #cba4e5;
+      position: fixed;
+      left: -250px;
+      top: 0;
       transition: left 0.3s ease;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       padding-top: 60px;
-      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
     }
     .navbar.open {
       left: 0;
     }
     .navbar a {
       display: block;
-      padding: 1rem 1.5rem;
+      color: white;
+      padding: 16px;
       text-decoration: none;
-      color: #ff5c8d;
+      font-size: 18px;
+      width: 100%;
+      text-align: center;
       font-weight: 600;
-      border-bottom: 1px solid #ffc8d4;
-      transition: background 0.3s ease;
+      transition: background-color 0.3s ease;
     }
     .navbar a:hover {
-      background: #ffadc6;
-      color: white;
+      background-color: #b282cc;
     }
+
+    /* Header fijo */
+    header {
+      width: 100%;
+      background: linear-gradient(90deg, #f8c8dc, #d8b4e2);
+      padding: 20px 0;
+      text-align: center;
+      color: #825f9a;
+      font-size: 2rem;
+      font-weight: bold;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 500;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      user-select: none;
+    }
+
+    /* Icono carrito */
     .cart-icon {
       position: fixed;
-      top: 10px; right: 10px;
-      font-size: 1.8rem;
+      top: 20px;
+      right: 20px;
+      font-size: 28px;
+      color: #825f9a;
+      background: #f8c8dc;
+      padding: 10px;
+      border-radius: 50%;
       cursor: pointer;
-      color: #ff5c8d;
-      z-index: 1000;
+      z-index: 1001;
+      box-shadow: 0 2px 6px rgba(130,95,154,0.4);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      user-select: none;
     }
+    .cart-icon:hover {
+      background-color: #d8b4e2;
+      color: #fff;
+    }
+
+    /* Popup carrito */
     .cart-popup {
       position: fixed;
-      top: 60px; right: 10px;
+      top: 70px;
+      right: 20px;
+      width: 90%;
+      max-width: 320px;
       background: white;
-      border: 2px solid #ff5c8d;
-      border-radius: 8px;
-      width: 280px;
-      max-height: 400px;
-      overflow-y: auto;
-      padding: 1rem;
-      box-shadow: 0 4px 12px rgba(255, 92, 141, 0.3);
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(130, 95, 154, 0.3);
+      padding: 20px;
       display: none;
-      z-index: 1000;
+      z-index: 1100;
+      font-family: Arial, sans-serif;
+      color: #5e3d7a;
     }
     .cart-popup h2 {
       margin-top: 0;
-      color: #ff5c8d;
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+      color: #825f9a;
+      border-bottom: 1px solid #d8b4e2;
+      padding-bottom: 8px;
+      user-select: none;
     }
     .cart-item {
       display: flex;
       justify-content: space-between;
-      padding: 0.3rem 0;
-      border-bottom: 1px solid #ffe3ec;
+      margin-bottom: 12px;
+      font-size: 1rem;
+      user-select: none;
     }
     .cart-total {
+      border-top: 1px solid #d8b4e2;
+      padding-top: 12px;
       font-weight: bold;
-      padding-top: 0.5rem;
-      border-top: 2px solid #ff5c8d;
-      margin-top: 0.5rem;
-      color: #c9003f;
+      font-size: 1.2rem;
+      text-align: right;
+      user-select: none;
     }
+
+    /* Carrusel */
     .carousel {
-      margin: 80px auto 2rem;
-      max-width: 90%;
+      margin-top: 120px;
+      width: 100%;
+      max-width: 800px;
+      height: 450px;
+      position: relative;
       overflow: hidden;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(255, 92, 141, 0.3);
+      border-radius: 15px;
+      background: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 8px 20px rgba(130, 95, 154, 0.15);
     }
     .slides {
       display: flex;
-      transition: transform 0.5s ease;
+      transition: transform 1s ease-in-out;
+      width: 400%;
+      height: 100%;
+    }
+    .slide {
+      flex: 0 0 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .slide img {
       width: 100%;
-      border-radius: 10px;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 15px;
       cursor: pointer;
+      background: transparent;
       user-select: none;
+      transition: transform 0.3s ease;
     }
+    .slide img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Contenido central */
     .content {
-      max-width: 600px;
-      margin: 0 auto 2rem;
-      padding: 0 1rem;
+      max-width: 800px;
+      padding: 20px;
       text-align: center;
+      color: #825f9a;
     }
     .content h1 {
-      color: #ff5c8d;
+      font-size: 2rem;
+      margin-bottom: 12px;
+      user-select: none;
     }
-    .content button {
-      background: #ff5c8d;
+    .content p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      user-select: none;
+    }
+    button {
+      background-color: #d8b4e2;
       color: white;
       border: none;
-      padding: 0.7rem 1.4rem;
-      font-size: 1rem;
-      border-radius: 25px;
+      padding: 12px 28px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: background 0.3s ease;
-      margin-top: 1rem;
+      transition: background-color 0.3s ease;
+      font-weight: 600;
+      font-size: 1rem;
+      user-select: none;
     }
-    .content button:hover {
-      background: #c9003f;
+    button:hover {
+      background-color: #b28dd1;
     }
+
+    /* Corazones animados */
+    .heart {
+      position: fixed;
+      top: -10px;
+      color: #f8c8dc;
+      font-size: 20px;
+      animation: fall linear infinite;
+      pointer-events: none;
+      user-select: none;
+      text-shadow: 0 0 6px #fff;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
+    /* Popup imagen grande */
     .img-popup {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       background: rgba(0,0,0,0.8);
       display: none;
       justify-content: center;
       align-items: center;
-      z-index: 1500;
+      z-index: 1200;
       cursor: pointer;
+      user-select: none;
     }
     .img-popup img {
       max-width: 90%;
       max-height: 90%;
-      border-radius: 10px;
-      box-shadow: 0 0 20px white;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #fff;
     }
-    /* Corazones animados */
-    .heart {
-      position: fixed;
-      color: #ff5c8d;
-      user-select: none;
-      animation-name: floatUp;
-      animation-timing-function: ease-in-out;
-      animation-fill-mode: forwards;
-      pointer-events: none;
-      z-index: 9999;
-    }
-    @keyframes floatUp {
-      0% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
+
+    /* Responsivo */
+    @media (max-width: 600px) {
+      header {
+        font-size: 1.5rem;
+        padding: 15px;
       }
-      100% {
-        opacity: 0;
-        transform: translateY(-150px) scale(1.5);
+      .menu-icon {
+        font-size: 24px;
+        padding: 8px;
+      }
+      .cart-icon {
+        font-size: 24px;
+        padding: 8px;
+      }
+      .content h1 {
+        font-size: 1.5rem;
+      }
+      .content p {
+        font-size: 1rem;
+      }
+      button {
+        padding: 10px 20px;
+      }
+      .carousel {
+        height: 280px;
+        aspect-ratio: 4 / 3;
+        margin-top: 90px;
       }
     }
   </style>
@@ -182,8 +317,7 @@
   </header>
 
   <div class="menu-icon-container">
-    <div class="menu-icon" aria-label="Abrir menú" role="button" tabindex="0"
-      onclick="toggleNavbar()" onkeydown="if(event.key==='Enter') toggleNavbar()">
+    <div class="menu-icon" aria-label="Abrir menú" role="button" tabindex="0" onclick="toggleNavbar()" onkeydown="if(event.key==='Enter') toggleNavbar()">
       <i class="fas fa-bars"></i>
     </div>
   </div>
@@ -192,22 +326,15 @@
     <a href="index.html">Inicio</a>
     <a href="ludoteca.html">Ludoteca</a>
     <a href="multimedia.html">Multimedia</a>
-    <a href="contacto.html">Contactos</a>
-    <a href="emergencia.html">DA CLIC SI ALGUN DIA ME EXTRAÑAS</a>
+    <a href="#contactos">Contactos</a>
   </nav>
 
-  <div class="cart-icon" aria-label="Abrir carrito de compras" role="button" tabindex="0"
-    onclick="toggleCart()" onkeydown="if(event.key==='Enter') toggleCart()">
+  <div class="cart-icon" aria-label="Abrir carrito de compras" role="button" tabindex="0" onclick="toggleCart()" onkeydown="if(event.key==='Enter') toggleCart()">
     <i class="fas fa-shopping-cart"></i>
   </div>
 
   <section class="cart-popup" id="cart-popup" aria-live="polite" aria-atomic="true" role="region">
     <h2>Carrito de compras</h2>
-
-    <div id="emergency-message" class="cart-item" style="white-space: normal; font-weight: bold; color: #c9003f;">
-      <!-- Aquí aparecerá el mensaje de emergencia -->
-    </div>
-
     <div class="cart-item">
       <span>Producto 1</span>
       <span>$120</span>
@@ -216,84 +343,97 @@
       <span>Producto 2</span>
       <span>$80</span>
     </div>
+    <div class="cart-item">
+      <span>Producto 3</span>
+      <span>$50</span>
+    </div>
     <div class="cart-total">
-      Total: $200
+      Total: $250
     </div>
   </section>
 
-  <div class="carousel">
+  <section class="carousel" aria-label="Galería de imágenes">
     <div class="slides" id="slides">
-      <div class="slide"><img src="img1.jpg" alt="Imagen 1" onclick="showImagePopup(this.src)"></div>
-      <div class="slide"><img src="img2.jpg" alt="Imagen 2" onclick="showImagePopup(this.src)"></div>
-      <div class="slide"><img src="img3.jpg" alt="Imagen 3" onclick="showImagePopup(this.src)"></div>
-      <div class="slide"><img src="img4.jpg" alt="Imagen 4" onclick="showImagePopup(this.src)"></div>
+      <div class="slide"><img src="tuyyo1.jpg" alt="Imagen 1 - Tú y Yo" tabindex="0" /></div>
+      <div class="slide"><img src="tuyyo2.jpg" alt="Imagen 2 - Momentos juntos" tabindex="0" /></div>
+      <div class="slide"><img src="tuyyo3.jpg" alt="Imagen 3 - Recuerdos felices" tabindex="0" /></div>
+      <div class="slide"><img src="tuyyo4.jpg" alt="Imagen 4 - Amor y alegría" tabindex="0" /></div>
     </div>
-  </div>
-
-  <section class="content">
-    <h1>Bienvenida, Elizabeth</h1>
-    <p>Este lugar es solo para ti y para mí, donde nuestros recuerdos y sueños cobran vida. Espero que cada parte de esta página te haga sonreír y sentir lo importante que eres para mí.</p>
-    <button onclick="alert('Te amo mucho ❤️')">Haz clic si me quieres</button>
   </section>
 
-  <div class="img-popup" id="img-popup" onclick="closeImagePopup()">
-    <img src="" alt="Imagen ampliada" />
+  <main class="content">
+    <h1>Bienvenidos a nuestro espacio especial</h1>
+    <p>Este sitio es un rincón dedicado a nuestros momentos juntos, lleno de amor, recuerdos y sueños compartidos.</p>
+    <button onclick="alert('Gracias por visitarnos ❤️')">Dale click aquí</button>
+  </main>
+
+  <div class="img-popup" id="img-popup" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1" onclick="closePopup()">
+    <img src="" alt="Imagen ampliada" id="popup-img" />
   </div>
 
   <script>
+    // Toggle sidebar menu
     function toggleNavbar() {
-      document.getElementById('sidebar').classList.toggle('open');
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('open');
       document.body.classList.toggle('sidebar-open');
     }
 
+    // Toggle cart popup
     function toggleCart() {
-      const popup = document.getElementById('cart-popup');
-      popup.style.display = (popup.style.display === 'block') ? 'none' : 'block';
+      const cart = document.getElementById('cart-popup');
+      cart.style.display = cart.style.display === 'block' ? 'none' : 'block';
     }
 
-    function showImagePopup(src) {
-      const popup = document.getElementById('img-popup');
-      popup.querySelector('img').src = src;
-      popup.style.display = 'flex';
-    }
-
-    function closeImagePopup() {
-      document.getElementById('img-popup').style.display = 'none';
-    }
-
-    // Carrusel automático
-    let index = 0;
+    // Carrusel automático con bucle infinito lento
     const slides = document.getElementById('slides');
     const totalSlides = slides.children.length;
-    setInterval(() => {
-      index = (index + 1) % totalSlides;
-      slides.style.transform = `translateX(-${index * 100}%)`;
-    }, 4000);
+    let currentIndex = 0;
 
-    // Corazones animados
-    setInterval(() => {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.innerText = '❤';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.fontSize = (Math.random() * 10 + 14) + 'px';
-      heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 5000);
-    }, 300);
-
-    // Mostrar mensaje de emergencia desde localStorage
-    function loadEmergencyMessage() {
-      const msgContainer = document.getElementById('emergency-message');
-      const msg = localStorage.getItem('emergencyMessage');
-      if (msg && msg.trim() !== '') {
-        msgContainer.textContent = `Mensaje de emergencia: ${msg}`;
-      } else {
-        msgContainer.textContent = 'No hay mensajes de emergencia guardados.';
-      }
+    function showNextSlide() {
+      currentIndex = (currentIndex + 1) % totalSlides;
+      slides.style.transform = `translateX(-${currentIndex * 100}%)`;
     }
 
-    window.onload = loadEmergencyMessage;
+    setInterval(showNextSlide, 7000); // Cambia cada 7 segundos
+
+    // Popup imagen ampliada al hacer click en la imagen del carrusel
+    const popup = document.getElementById('img-popup');
+    const popupImg = document.getElementById('popup-img');
+    const slideImages = document.querySelectorAll('.slide img');
+
+    slideImages.forEach(img => {
+      img.addEventListener('click', () => {
+        popupImg.src = img.src;
+        popupImg.alt = img.alt;
+        popup.style.display = 'flex';
+        popup.setAttribute('aria-hidden', 'false');
+        popup.focus();
+      });
+    });
+
+    function closePopup() {
+      popup.style.display = 'none';
+      popup.setAttribute('aria-hidden', 'true');
+    }
+
+    // Animar corazones caídos
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = (10 + Math.random() * 20) + 'px';
+      heart.style.animationDuration = (5 + Math.random() * 5) + 's';
+      heart.textContent = '❤️';
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 10000); // Eliminar después de 10 segundos
+    }
+
+    setInterval(createHeart, 300);
+
   </script>
 </body>
 </html>
