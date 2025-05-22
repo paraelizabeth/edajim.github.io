@@ -1,31 +1,62 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Emergencia</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Escribe tu mensaje</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #fff0f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+    }
+    textarea {
+      width: 80%;
+      height: 150px;
+      font-size: 1.2em;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      resize: none;
+      background-color: #fff;
+    }
+    button {
+      margin-top: 20px;
+      background-color: #ff69b4;
+      border: none;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #d64d96;
+    }
+  </style>
 </head>
 <body>
-  <h2>Escribe tu mensaje de emergencia:</h2>
-  <textarea id="mensaje" rows="5" cols="40" required></textarea><br><br>
-
-  <button onclick="guardarMensaje()">Guardar mensaje</button>
-  <button onclick="borrarMensaje()">Borrar mensaje</button>
+  <h1>💌 Escribe un mensaje para Elizabeth</h1>
+  <textarea id="mensaje"></textarea>
+  <button onclick="guardarMensaje()">Guardar Mensaje</button>
 
   <script>
     function guardarMensaje() {
-      const mensaje = document.getElementById("mensaje").value.trim();
-      if (mensaje === "") {
-        alert("Por favor escribe un mensaje antes de guardar.");
-        return;
-      }
-      localStorage.setItem("mensajeEmergencia", mensaje);
-      alert("Mensaje guardado. Puedes verlo en index.html.");
+      const mensaje = document.getElementById('mensaje').value;
+      localStorage.setItem('mensajeEmergencia', mensaje);
+      alert('Mensaje guardado. Ahora aparecerá en el inicio.');
     }
 
-    function borrarMensaje() {
-      localStorage.removeItem("mensajeEmergencia");
-      alert("Mensaje de emergencia borrado.");
-    }
+    // Mostrar el mensaje guardado en el textarea
+    window.onload = () => {
+      const mensajeGuardado = localStorage.getItem('mensajeEmergencia');
+      if (mensajeGuardado) {
+        document.getElementById('mensaje').value = mensajeGuardado;
+      }
+    };
   </script>
 </body>
 </html>
