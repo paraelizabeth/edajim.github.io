@@ -83,14 +83,28 @@
       padding-left: 250px;
     }
 
-    .content {
+    /* Contenedor general para cada bloque de canciones */
+    .section-block {
       margin-top: 90px;
-      padding: 20px;
+      margin-bottom: 40px;
       max-width: 960px;
       margin-left: auto;
       margin-right: auto;
+      padding: 0 20px;
+    }
+
+    .section-block h2 {
+      color: #825f9a;
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #b282cc;
+      padding-bottom: 8px;
+    }
+
+    /* Grid de canciones dentro de cada bloque */
+    .content {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 20px;
     }
 
@@ -103,6 +117,12 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      transition: transform 0.3s;
+    }
+
+    .song:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(130, 95, 154, 0.4);
     }
 
     .song img {
@@ -118,6 +138,7 @@
       width: 100%;
       border-radius: 10px;
       margin: 0;
+      outline: none;
     }
 
     .heart {
@@ -217,6 +238,69 @@
     <a href="multimedia.html">Multimedia</a>
     <a href="contacto.HTML">Contactos</a>
   </nav>
+
+  <!-- BLOQUE 1 -->
+  <section class="section-block">
+    <h2>🎶 Canciones Infantiles</h2>
+    <div class="content">
+      <div class="song">
+        <img src="img/cancion1.jpg" alt="Canción 1" />
+        <audio controls>
+          <source src="audio/cancion1.mp3" type="audio/mpeg" />
+          Tu navegador no soporta audio.
+        </audio>
+      </div>
+      <div class="song">
+        <img src="img/cancion2.jpg" alt="Canción 2" />
+        <audio controls>
+          <source src="audio/cancion2.mp3" type="audio/mpeg" />
+          Tu navegador no soporta audio.
+        </audio>
+      </div>
+      <div class="song">
+        <img src="img/cancion3.jpg" alt="Canción 3" />
+        <audio controls>
+          <source src="audio/cancion3.mp3" type="audio/mpeg" />
+          Tu navegador no soporta audio.
+        </audio>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOQUE 2 -->
+  <section class="section-block">
+    <h2>🎵 Canciones para Relajación</h2>
+    <div class="content">
+      <div class="song">
+        <img src="img/cancion4.jpg" alt="Canción 4" />
+        <audio controls>
+          <source src="audio/cancion4.mp3" type="audio/mpeg" />
+          Tu navegador no soporta audio.
+        </audio>
+      </div>
+      <div class="song">
+        <img src="img/cancion5.jpg" alt="Canción 5" />
+        <audio controls>
+          <source src="audio/cancion5.mp3" type="audio/mpeg" />
+          Tu navegador no soporta audio.
+        </audio>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOQUE 3 -->
+  <section class="section-block">
+    <h2>🎤 Canciones Especiales</h2>
+    <div class="content">
+      <div class="song">
+        <img src="img/cancion6.jpg" alt="Canción 6" />
+        <audio controls>
+          <source src="audio/cancion6.mp3" type="audio/mpeg" />
+          Tu navegador no soporta audio.
+        </audio>
+      </div>
+    </div>
+  </section>
 
   <!-- SECCIÓN DE CONTACTOS -->
   <section id="contactos">
