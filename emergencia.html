@@ -2,61 +2,118 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Escribe tu mensaje</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mensaje de Emergencia</title>
+  <meta name="description" content="Página para escribir mensaje de emergencia" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: Arial, sans-serif;
       background: #fff0f5;
+      color: #333;
+      margin: 0; padding: 0;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+    .container {
+      background: white;
+      border: 2px solid #ff5c8d;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 100%;
+      padding: 2rem;
+      box-shadow: 0 6px 18px rgba(255, 92, 141, 0.3);
+      text-align: center;
+    }
+    h1 {
+      color: #ff5c8d;
+      margin-bottom: 1.5rem;
     }
     textarea {
-      width: 80%;
-      height: 150px;
-      font-size: 1.2em;
-      padding: 10px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      resize: none;
-      background-color: #fff;
+      width: 100%;
+      height: 120px;
+      border: 2px solid #ff5c8d;
+      border-radius: 6px;
+      padding: 0.8rem;
+      font-size: 1rem;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    textarea:focus {
+      border-color: #c9003f;
     }
     button {
-      margin-top: 20px;
-      background-color: #ff69b4;
-      border: none;
+      background: #ff5c8d;
       color: white;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 1em;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      font-size: 1.1rem;
+      border-radius: 30px;
+      margin-top: 1rem;
       cursor: pointer;
+      transition: background 0.3s ease;
+      width: 100%;
     }
     button:hover {
-      background-color: #d64d96;
+      background: #c9003f;
+    }
+    .message {
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #c9003f;
+    }
+    a.back-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      color: #ff5c8d;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    a.back-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <h1>💌 Escribe un mensaje para Elizabeth</h1>
-  <textarea id="mensaje"></textarea>
-  <button onclick="guardarMensaje()">Guardar Mensaje</button>
+  <div class="container" role="main" aria-labelledby="title-emergencia">
+    <h1 id="title-emergencia">Escribe un mensaje de emergencia</h1>
+    <form id="emergencia-form">
+      <label for="emergency-msg" class="sr-only">Mensaje de emergencia</label>
+      <textarea id="emergency-msg" name="emergency-msg" placeholder="Si algún día me extrañas, escribe aquí lo que quieras que sepa..." required></textarea>
+      <button type="submit" aria-label="Guardar mensaje de emergencia">Guardar mensaje</button>
+    </form>
+    <div class="message" id="save-message" aria-live="polite"></div>
+    <a href="index.html" class="back-link" aria-label="Volver a la página principal">← Volver</a>
+  </div>
 
   <script>
-    function guardarMensaje() {
-      const mensaje = document.getElementById('mensaje').value;
-      localStorage.setItem('mensajeEmergencia', mensaje);
-      alert('Mensaje guardado. Ahora aparecerá en el inicio.');
-    }
+    const form = document.getElementById('emergencia-form');
+    const textarea = document.getElementById('emergency-msg');
+    const saveMessage = document.getElementById('save-message');
 
-    // Mostrar el mensaje guardado en el textarea
+    // Cargar mensaje guardado si existe
     window.onload = () => {
-      const mensajeGuardado = localStorage.getItem('mensajeEmergencia');
-      if (mensajeGuardado) {
-        document.getElementById('mensaje').value = mensajeGuardado;
+      const savedMsg = localStorage.getItem('emergencyMessage');
+      if (savedMsg) {
+        textarea.value = savedMsg;
       }
     };
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const msg = textarea.value.trim();
+      if (msg.length === 0) {
+        saveMessage.textContent = 'Por favor, escribe un mensaje válido.';
+        return;
+      }
+      localStorage.setItem('emergencyMessage', msg);
+      saveMessage.textContent = 'Mensaje guardado con éxito.';
+      textarea.blur();
+    });
   </script>
 </body>
 </html>
