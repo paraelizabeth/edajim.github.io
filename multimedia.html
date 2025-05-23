@@ -64,7 +64,7 @@
       align-items: center;
       transition: left 0.3s ease;
       z-index: 1000;
-      padding-top: 70px; /* para que no quede debajo del header */
+      padding-top: 70px;
       box-sizing: border-box;
     }
 
@@ -90,7 +90,6 @@
       padding-left: 250px;
     }
 
-    /* Contenido */
     .content {
       margin-top: 90px;
       padding: 20px;
@@ -102,11 +101,6 @@
       grid-template-columns: repeat(4, 1fr);
       gap: 20px;
       transition: padding-left 0.3s ease;
-    }
-
-    /* Ajustar padding del content cuando navbar está abierta (por si acaso) */
-    body.sidebar-open .content {
-      /* Aquí no es necesario porque body ya tiene padding-left */
     }
 
     .song {
@@ -121,17 +115,18 @@
       align-items: center;
       transition: transform 0.2s ease;
     }
+
     .song:hover {
       transform: scale(1.05);
     }
 
     .song img {
-      max-width: 100%;
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
       border-radius: 10px;
       margin-bottom: 10px;
-      object-fit: cover;
-      height: 150px;
-      width: 100%;
+      display: block;
     }
 
     audio {
@@ -140,7 +135,6 @@
       margin: 0;
     }
 
-    /* Corazones descendiendo */
     .heart {
       position: fixed;
       top: -10px;
@@ -163,7 +157,6 @@
       }
     }
 
-    /* RESPONSIVE */
     @media (max-width: 1024px) {
       .content {
         grid-template-columns: repeat(3, 1fr);
@@ -209,7 +202,7 @@
   </nav>
 
   <main class="content">
-    <div class="song">
+        <div class="song">
       <img src="s1.png" alt="Portada canción 1" />
       <audio controls>
         <source src="amordelbueno.mp3" type="audio/mpeg" />
@@ -392,6 +385,9 @@
         Tu navegador no soporta el reproductor de audio.
       </audio>
     </div>
+    <!-- Aquí van tus múltiples div.song con imágenes y audios -->
+    <!-- (No se repite para ahorrar espacio, pero tú ya tienes todos los elementos en tu código original) -->
+    <!-- Solo asegúrate de que estén pegados justo aquí como ya los tenías -->
   </main>
 
   <script>
@@ -401,7 +397,6 @@
       sidebar.classList.toggle("open");
     }
 
-    // Corazones animados
     setInterval(() => {
       const heart = document.createElement("div");
       heart.className = "heart";
