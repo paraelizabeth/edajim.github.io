@@ -2,207 +2,82 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Multimedia - Tú y Yo</title>
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     body {
       margin: 0;
       font-family: "Arial", sans-serif;
       background: linear-gradient(to bottom right, #f8c8dc, #d8b4e2);
       overflow-x: hidden;
-      transition: padding-left 0.3s ease;
     }
 
     header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 70px;
-      background: linear-gradient(90deg, #f8c8dc, #d8b4e2);
-      color: #825f9a;
-      font-size: 2rem;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      z-index: 900;
-    }
-
-    .menu-icon-container {
-      position: fixed;
-      top: 15px;
-      left: 15px;
-      z-index: 1001;
-    }
-
-    .menu-icon {
-      font-size: 30px;
-      color: white;
-      background-color: #f7a9c4;
-      padding: 10px;
-      cursor: pointer;
-      border-radius: 5px;
-      user-select: none;
-    }
-
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: -250px;
-      height: 100vh;
-      width: 250px;
-      background-color: #cba4e5;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      transition: left 0.3s ease;
-      z-index: 1000;
-      padding-top: 70px;
-      box-sizing: border-box;
-    }
-
-    .navbar.open {
-      left: 0;
-    }
-
-    .navbar a {
-      color: white;
-      padding: 16px;
-      text-decoration: none;
-      font-size: 18px;
-      width: 100%;
+      background-color: #fff;
+      padding: 20px;
       text-align: center;
-      box-sizing: border-box;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
-    .navbar a:hover {
-      background-color: #b282cc;
-    }
-
-    body.sidebar-open {
-      padding-left: 250px;
+    h1 {
+      color: #b44e9d;
+      margin: 0;
     }
 
     .content {
-      margin-top: 90px;
+      margin-top: 40px;
       padding: 20px;
-      max-width: 960px;
+      max-width: 1200px;
       margin-left: auto;
       margin-right: auto;
-
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
-      transition: padding-left 0.3s ease;
     }
 
     .song {
       background: #e6d0f5;
       border-radius: 15px;
-      padding: 15px;
+      padding: 10px;
       box-shadow: 0 4px 8px rgba(130, 95, 154, 0.2);
-
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      transition: transform 0.2s ease;
-    }
-
-    .song:hover {
-      transform: scale(1.05);
+      height: 300px;
+      overflow: hidden;
     }
 
     .song img {
       width: 100%;
-      height: 150px;
+      height: 70%;
       object-fit: cover;
       border-radius: 10px;
-      margin-bottom: 10px;
       display: block;
     }
 
-    audio {
+    .song audio {
       width: 100%;
-      border-radius: 10px;
-      margin: 0;
+      margin-top: 10px;
+      border-radius: 8px;
     }
 
-    .heart {
-      position: fixed;
-      top: -10px;
-      color: #f8c8dc;
-      font-size: 20px;
-      animation: fall linear infinite;
-      user-select: none;
-      pointer-events: none;
-      z-index: 10;
-    }
-
-    @keyframes fall {
-      0% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh);
-        opacity: 0;
-      }
-    }
-
-    @media (max-width: 1024px) {
-      .content {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-    @media (max-width: 768px) {
-      .content {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      header {
-        font-size: 1.6rem;
-      }
-    }
-    @media (max-width: 480px) {
-      .content {
-        grid-template-columns: 1fr;
-      }
-      .menu-icon-container {
-        top: 12px;
-        left: 12px;
-      }
-      header {
-        font-size: 1.4rem;
-      }
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #fff;
+      background-color: #b44e9d;
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
-  <header>🎵 Nuestras Canciones</header>
+  <header>
+    <h1>Multimedia - Tú y Yo</h1>
+  </header>
 
-  <div class="menu-icon-container">
-    <div class="menu-icon" onclick="toggleNavbar()">
-      <i class="fas fa-bars"></i>
-    </div>
-  </div>
-
-  <nav class="navbar" id="sidebar">
-    <a href="index.html">Inicio</a>
-    <a href="ludoteca.html">Ludoteca</a>
-    <a href="multimedia.html">Multimedia</a>
-    <a href="contacto.html">Contactos</a>
-    <a href="emergencia.html">SI ALGUN DIA ME EXTRAÑAS...USALO</a>
-  </nav>
-
-  <main class="content">
-        <div class="song">
+     <div class="song">
       <img src="s1.png" alt="Portada canción 1" />
       <audio controls>
         <source src="amordelbueno.mp3" type="audio/mpeg" />
@@ -385,27 +260,9 @@
         Tu navegador no soporta el reproductor de audio.
       </audio>
     </div>
-    <!-- Aquí van tus múltiples div.song con imágenes y audios -->
-    <!-- (No se repite para ahorrar espacio, pero tú ya tienes todos los elementos en tu código original) -->
-    <!-- Solo asegúrate de que estén pegados justo aquí como ya los tenías -->
-  </main>
 
-  <script>
-    function toggleNavbar() {
-      const sidebar = document.getElementById("sidebar");
-      document.body.classList.toggle("sidebar-open");
-      sidebar.classList.toggle("open");
-    }
-
-    setInterval(() => {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = Math.random() * 3 + 2 + "s";
-      heart.innerText = "❤️";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 5000);
-    }, 500);
-  </script>
+  <footer>
+    <p>Con amor, Carlos</p>
+  </footer>
 </body>
 </html>
